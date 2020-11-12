@@ -21,17 +21,19 @@ export default {
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: ["vuesax/dist/vuesax.css", "~/assets/css/transitions.css"],
+  css: [
+    "vuesax/dist/vuesax.css",
+    "~/assets/css/transitions.css",
+    "~/assets/css/main.scss",
+  ],
 
-  /* pageTransition: {
-    name: "slide-right",
+  pageTransition: {
+    name: "slide-left",
     mode: "out-in",
     beforeEnter(el) {
-      console.log("Before enter...", el);
+      console.log("Before enter in config...", el);
     },
-  },*/
-
-  pageTransition: "slide-left",
+  },
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: ["@/plugins/vuesax"],
@@ -43,7 +45,6 @@ export default {
   buildModules: [
     [
       // https://go.nuxtjs.dev/typescript
-      "@nuxtjs/style-resources",
       "@nuxt/typescript-build",
       "@nuxtjs/google-fonts",
       "@nuxtjs/dotenv",
@@ -53,12 +54,9 @@ export default {
     ],
   ],
 
-  styleResources: {
-    scss: ["~/assets/css/main.scss"],
-  },
-
   googleFonts: {
     families: {
+      Roboto: true, //TODO REMOVE
       Poppins: { display: "swap", wght: [100, 400, 700], download: true },
     },
   },
@@ -98,22 +96,19 @@ export default {
 
   pwa: {
     meta: {
-      "mobile-web-app-capable": true,
-      mobileApp: true,
-      mobileAppIOS: true,
-      "apple-mobile-web-app-capable": true,
+      title: "Boud Cabin",
       name: "Boud Family Cabin",
-      description: "An application for the Boud Family Cabin",
-      theme_color: "#e64d3c",
-      "theme-color": "#e64d3c",
+      mobileApp: true,
+      theme_color: process.env.theme,
+      mobileAppIOS: true,
       nativeUI: true,
-      appleStatusBarStyle: "black-translucent",
-      display: "standalone",
     },
     manifest: {
-      short_name: "Boud Cabin",
       name: "Boud Family Cabin",
-      background_color: "#e64d3c",
+      short_name: "Boud Cabin",
+      description: "An application for the Boud Family Cabin",
+      background_color: process.env.theme,
+      lang: "en",
     },
   },
 };
