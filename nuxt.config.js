@@ -21,11 +21,7 @@ export default {
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: [
-    "vuesax/dist/vuesax.css",
-    "~/assets/css/transitions.css",
-    "~/assets/css/main.scss",
-  ],
+  css: ["vuesax/dist/vuesax.css", "~/assets/css/transitions.css"],
 
   /* pageTransition: {
     name: "slide-right",
@@ -47,6 +43,7 @@ export default {
   buildModules: [
     [
       // https://go.nuxtjs.dev/typescript
+      "@nuxtjs/style-resources",
       "@nuxt/typescript-build",
       "@nuxtjs/google-fonts",
       "@nuxtjs/dotenv",
@@ -55,6 +52,10 @@ export default {
       },
     ],
   ],
+
+  styleResources: {
+    scss: ["~/assets/css/main.scss"],
+  },
 
   googleFonts: {
     families: {
@@ -97,12 +98,22 @@ export default {
 
   pwa: {
     meta: {
+      "mobile-web-app-capable": true,
       mobileApp: true,
       mobileAppIOS: true,
+      "apple-mobile-web-app-capable": true,
       name: "Boud Family Cabin",
       description: "An application for the Boud Family Cabin",
-      theme_color: "#000",
+      theme_color: "#e64d3c",
+      "theme-color": "#e64d3c",
       nativeUI: true,
+      appleStatusBarStyle: "black-translucent",
+      display: "standalone",
+    },
+    manifest: {
+      short_name: "Boud Cabin",
+      name: "Boud Family Cabin",
+      background_color: "#e64d3c",
     },
   },
 };
