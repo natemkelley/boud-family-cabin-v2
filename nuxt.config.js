@@ -88,8 +88,8 @@ export default {
         services: {
           auth: true,
           firestore: true,
-          functions: true,
-          storage: true,
+          functions: false,
+          storage: false,
         },
       },
     ],
