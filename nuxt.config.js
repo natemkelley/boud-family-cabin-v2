@@ -27,6 +27,11 @@ export default {
     "~/assets/css/main.scss",
   ],
 
+  loading: {
+    name: "folding-cube",
+    color: "#d66354",
+  },
+
   pageTransition: {
     name: "slide-left",
     mode: "out-in",
@@ -81,8 +86,10 @@ export default {
           measurementId: process.env.measurementId,
         },
         services: {
+          auth: true,
           firestore: true,
-          messaging: true,
+          functions: true,
+          storage: true,
         },
       },
     ],
