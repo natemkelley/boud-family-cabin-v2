@@ -86,7 +86,7 @@ export default class Navigation extends Vue {
 </script>
 
 <style lang="scss" scoped>
-$nav-height: 94px;
+$nav-height: 75px;
 $border-radius: 25px 25px 0px 0px;
 $box-shadow: 0px -1px 5px #0000001f;
 

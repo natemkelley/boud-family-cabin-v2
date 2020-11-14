@@ -1,6 +1,6 @@
 <template>
   <div class="default">
-    <Nuxt class="container" />
+    <Nuxt class="container" :nuxt-child-key="key" />
     <Navigation />
   </div>
 </template>
@@ -11,7 +11,9 @@ import Navigation from "@/components/Navigation.vue";
 
 @Component({ components: { Navigation } })
 export default class defaultLayout extends Vue {
-  test = "this the navigation";
+  get key() {
+    return this.$nuxt.$route.path;
+  }
 }
 </script>
 
@@ -20,10 +22,12 @@ export default class defaultLayout extends Vue {
 .container {
   height: 100%;
   position: relative;
-}
-
-.default {
   min-height: 100vh;
   overflow-x: hidden;
+  padding-bottom: 120px; //TODO
+}
+
+.container {
+  padding: 15px;
 }
 </style>

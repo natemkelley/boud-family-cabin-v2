@@ -1,7 +1,5 @@
 <template>
-  <div>
-    {{ test }}
-  </div>
+  <div>brighton</div>
 </template>
 
 <script lang="ts">

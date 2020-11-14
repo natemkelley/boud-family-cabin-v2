@@ -30,6 +30,7 @@
     "nuxt-svgicon": "^1.2.7",
     "rgb-hex": "^3.0.0",
     "style-loader": "^2.0.0",
+    "swiper": "^6.3.5",
     "url-loader": "^4.1.1",
     "uuid": "^7.0.3",
     "vue-class-component": "^7.2.6",

@@ -14,7 +14,7 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 @Component({ components: {} })
 export default class NateIcons extends Vue {
   @Prop() icon!: string;
-  @Prop({ default: 70 }) size: number;
+  @Prop({ default: 55 }) size: number;
   @Prop({ default: true }) gradient: boolean;
   @Prop({ default: "black" }) color: string;
 
