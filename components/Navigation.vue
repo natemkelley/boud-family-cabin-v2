@@ -3,8 +3,15 @@
     <div class="navigation-container">
       <div class="navigation-secondary" :class="{ hide: !showSecondary }">
         <div class="navigation-interior">
-          <NuxtLink v-for="link in secondaryLinks" :key="link.icon" :to="'/'">
-            <NateIcons :icon="link.icon" :color="activeLinkColor(link.link)" />
+          <NuxtLink
+            v-for="secondary in secondaryLinks"
+            :key="secondary.icon"
+            :to="secondary.link"
+          >
+            <NateIcons
+              :icon="secondary.icon"
+              :color="activeSecondaryColor(secondary.link)"
+            />
           </NuxtLink>
         </div>
       </div>
@@ -39,32 +46,37 @@ export default class Navigation extends Vue {
     },
     {
       icon: "car",
-      link: "/",
+      link: "/driving",
       secondaryLink: [],
     },
     {
       icon: "ski",
       link: "/resorts",
-      secondaryLink: [{ icon: "solitude" }, { icon: "brighton" }],
+      secondaryLink: [
+        { icon: "solitude", link: "/resorts/solitude" },
+        { icon: "brighton", link: "/resorts/brighton" },
+      ],
     },
   ];
 
   activeLinkColor(name: string) {
-    const isActive = this.$nuxt.$route.path === name;
+    const isActive = this.activeLink?.link.includes(name);
+    return !isActive ? "black" : `${vStyleToHex("--vs-primary")}`;
+  }
+
+  activeSecondaryColor(name: string) {
+    const isActive = name.includes(this.$nuxt.$route.path);
     return !isActive ? "black" : `${vStyleToHex("--vs-primary")}`;
   }
 
   get activeLink() {
     return this.primaryNavigation.find(
-      (nav) => nav.link === this.$nuxt.$route.path
+      (nav) => nav.link === this.$nuxt.$route.matched[0].path
     );
   }
 
   get secondaryLinks() {
-    const active = this.primaryNavigation.find(
-      (nav) => nav.link === this.$nuxt.$route.path
-    );
-    return active && active.secondaryLink;
+    return this.activeLink && this.activeLink.secondaryLink;
   }
 
   get showSecondary() {

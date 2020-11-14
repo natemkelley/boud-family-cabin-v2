@@ -1,16 +1,14 @@
 <template>
-  <div>
-    <div v-for="num in 100" :key="num">
-      {{ test }}
-    </div>
-  </div>
+  <div></div>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from "vue-property-decorator";
-
-@Component
-export default class IndexPage extends Vue {
-  test = "this the index page";
-}
+export default {
+  middleware({ route, redirect }) {
+    const isBaseRoute = route.matched.length === 1;
+    if (isBaseRoute) {
+      redirect("/driving");
+    }
+  },
+};
 </script>

@@ -1,9 +1,14 @@
 <template>
-  <div>resort default</div>
+  <div></div>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from "vue-property-decorator";
-
-export default {};
+export default {
+  middleware({ route, redirect }) {
+    const isBaseRoute = route.matched.length === 1;
+    if (isBaseRoute) {
+      redirect("/resorts/brighton");
+    }
+  },
+};
 </script>

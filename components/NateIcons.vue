@@ -1,9 +1,8 @@
 <template>
-  <span class="nate-icon">
+  <span class="nate-icon" :style="computedStyle">
     <svgicon
       :name="icon"
       :class="{ gradient: gradient }"
-      :width="size"
       :color="color"
     ></svgicon>
   </span>
@@ -15,21 +14,33 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 @Component({ components: {} })
 export default class NateIcons extends Vue {
   @Prop() icon!: string;
-  @Prop({ default: "15vw" }) size: string;
+  @Prop({ default: 70 }) size: number;
   @Prop({ default: true }) gradient: boolean;
   @Prop({ default: "black" }) color: string;
+
+  get computedStyle() {
+    return {
+      fontSize: this.size + "px",
+    };
+  }
 }
 </script>
 
 <style lang="scss">
 .nate-icon {
+  font-size: 20px;
   margin: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .svg {
-  &--icon {
+  &-icon {
+    width: 1em;
+    display: flex;
+    display: flex;
     color: inherit;
-    vertical-align: middle;
     fill: none;
     stroke: currentColor;
   }
@@ -43,6 +54,6 @@ export default class NateIcons extends Vue {
 }
 
 .gradient {
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.62), rgb(0, 0, 0));
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.57), rgb(0, 0, 0));
 }
 </style>

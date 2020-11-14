@@ -35,9 +35,6 @@ export default {
   pageTransition: {
     name: "slide-left",
     mode: "out-in",
-    beforeEnter(el) {
-      console.log("Before enter in config...", el);
-    },
   },
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
