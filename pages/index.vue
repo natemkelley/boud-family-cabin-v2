@@ -1,18 +1,14 @@
 <template>
-  <div class="index-cont">
-    <div>
-      index page
-    </div>
+  <div>
+    {{ test }}
   </div>
 </template>
 
-<script>
-import Logo from "~/components/Logo.vue";
-import VuesaxLogo from "~/components/VuesaxLogo.vue";
+<script lang="ts">
+import { Vue, Component, Prop } from "vue-property-decorator";
 
-export default {
-  components: {},
-};
+@Component
+export default class IndexPage extends Vue {
+  test = "this the index page";
+}
 </script>
-
-<style></style>

@@ -17,7 +17,6 @@ export default {
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { hid: "description", name: "description", content: "" },
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
@@ -60,11 +59,14 @@ export default {
   ],
 
   googleFonts: {
+    preload: true,
     families: {
+      "Open+Sans": { wght: [100, 400] },
       Roboto: true, //TODO REMOVE
-      Poppins: { display: "swap", wght: [100, 400, 700], download: true },
     },
   },
+
+  //      ,
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
@@ -72,6 +74,7 @@ export default {
     "@nuxtjs/axios",
     // https://go.nuxtjs.dev/pwa
     "@nuxtjs/pwa",
+    "@nuxtjs/google-fonts",
     [
       "@nuxtjs/firebase",
       {
