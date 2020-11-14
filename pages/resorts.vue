@@ -1,16 +1,9 @@
 <template>
-  <div>
-    {{ test }}
-  </div>
+  <div>resort default</div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
 
-@Component
-export default class ResortPage extends Vue {
-  @Prop(Number) readonly propA: number | undefined;
-
-  test = "this the resorts page";
-}
+export default {};
 </script>

@@ -1,6 +1,8 @@
 <template>
   <div>
-    {{ test }}
+    <div v-for="num in 100" :key="num">
+      {{ test }}
+    </div>
   </div>
 </template>
 

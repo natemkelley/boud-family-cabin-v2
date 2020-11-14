@@ -17,15 +17,20 @@
     "@nuxtjs/firebase": "^5.0.6",
     "@nuxtjs/pwa": "^3.0.2",
     "@nuxtjs/style-resources": "^1.0.0",
+    "@types/lodash": "^4.14.165",
     "boxicons": "^2.0.7",
     "cookie-parser": "^1.4.5",
     "core-js": "^3.6.5",
+    "file-loader": "^6.2.0",
     "firebase": "^7.13.2",
     "firebase-admin": "^8.10.0",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
     "nuxt": "^2.14.6",
+    "nuxt-svgicon": "^1.2.7",
+    "rgb-hex": "^3.0.0",
     "style-loader": "^2.0.0",
+    "url-loader": "^4.1.1",
     "uuid": "^7.0.3",
     "vue-class-component": "^7.2.6",
     "vue-property-decorator": "^9.0.2",
@@ -35,8 +40,10 @@
     "@nuxt/types": "^2.14.6",
     "@nuxt/typescript-build": "^2.0.3",
     "@nuxtjs/google-fonts": "^1.2.0",
+    "@nuxtjs/svg": "^0.1.12",
     "fibers": "^5.0.0",
     "sass": "^1.29.0",
-    "sass-loader": "^10.1.0"
+    "sass-loader": "^10.1.0",
+    "vue-svg-loader": "^0.16.0"
   }
 }

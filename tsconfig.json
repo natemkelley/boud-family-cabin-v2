@@ -1,8 +1,11 @@
 {
   "compilerOptions": {
-    "target": "ES2018",
-    "module": "ESNext",
+    "target": "esnext",
+    "module": "esnext",
     "moduleResolution": "Node",
+    "importHelpers": true,
+    "allowSyntheticDefaultImports": true,
+    "strictPropertyInitialization": false,
     "lib": [
       "ESNext",
       "ESNext.AsyncIterable",
@@ -21,17 +24,21 @@
       ],
       "@/*": [
         "./*"
-      ]
+      ],
+      "components/*": ["@/components/*"],
+      "config/*": ["@/config/*"],
+      "assets/*": ["@/assets/*"],
     },
     "types": [
       "@types/node",
       "@nuxt/types",
-      "@nuxtjs/firebase"
+      "@nuxtjs/firebase",
     ]
   },
   "exclude": [
     "node_modules",
     ".nuxt",
     "dist"
-  ]
+  ],
+  "include": ["typings/**/*.ts"],
 }

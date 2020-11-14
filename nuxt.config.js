@@ -21,6 +21,7 @@ export default {
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
+    "~/assets/css/variables.css",
     "vuesax/dist/vuesax.css",
     "~/assets/css/transitions.css",
     "~/assets/css/main.scss",
@@ -74,7 +75,8 @@ export default {
     "@nuxtjs/axios",
     // https://go.nuxtjs.dev/pwa
     "@nuxtjs/pwa",
-    "@nuxtjs/google-fonts",
+    "@nuxtjs/svg",
+    "nuxt-svgicon",
     [
       "@nuxtjs/firebase",
       {
@@ -102,7 +104,9 @@ export default {
   axios: {},
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {},
+  build: {
+    extend(config, ctx) {},
+  },
 
   pwa: {
     meta: {
