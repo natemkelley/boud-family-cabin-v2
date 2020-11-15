@@ -1,17 +1,17 @@
 <template>
   <div class="swiper-ind">
-    <SwiperCard @cardClick="cardClick" />
+    <SwiperCard @cardClick="cardClick" :cardData="cameraData" />
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
 import SwiperCard from "@/components/SwipeCard.vue";
-import { cameraData } from "@/config/camera.ts";
+import { getCameraData } from "@/config/camera.ts";
 
 @Component({ components: { SwiperCard } })
 export default class DrivingPage extends Vue {
-  imageData = cameraData;
+  cameraData = getCameraData();
 
   cardClick() {}
 }

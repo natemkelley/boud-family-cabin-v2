@@ -1,16 +1,17 @@
 <template>
   <swiper class="swiper" :options="swiperOption" @slideChange="slideChange">
-    <swiper-slide v-for="i in 4" :key="i">
-      <CameraCard />
+    <swiper-slide v-for="card in cardData" :key="card.id">
+      <CameraCard :card="card" />
     </swiper-slide>
   </swiper>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from "vue-property-decorator";
+import { Vue, Component, Prop, Emit } from "vue-property-decorator";
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 import CameraCard from "@/components/CameraCard.vue";
 import "swiper/swiper-bundle.min.css";
+import { CardData } from "@/config/camera";
 
 @Component({
   components: {
@@ -20,22 +21,22 @@ import "swiper/swiper-bundle.min.css";
   },
 })
 export default class SwipeCard extends Vue {
+  @Prop() cardData: CardData;
+
   swiperOption = {
     slidesPerView: "auto",
-    spaceBetween: 0,
+    spaceBetween: -10,
     centeredSlides: true,
-    loop: true,
+    loop: false,
     autoHeight: true,
   };
 
-  get swiper() {
-    return (this.$refs.mySwiper as any).$swiper;
-  }
-
   slideTo(number: number) {
-    this.swiper.slideTo(number, 1000, false);
+    const swiper = (this.$refs.mySwiper as any).$swiper;
+    swiper.slideTo(number, 1000, false);
   }
 
+  @Emit("slideChange")
   slideChange(slideData: any) {
     const { activeIndex, realIndex } = slideData;
     console.log("changed", activeIndex);
@@ -56,11 +57,7 @@ export default class SwipeCard extends Vue {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 90%;
+  width: 95%;
   max-width: 350px;
-
-  //adjust for dumb stuff
-  margin-left: -12px;
-  margin-right: -12px;
 }
 </style>

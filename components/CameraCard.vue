@@ -1,38 +1,63 @@
 <template>
-  <vs-card type="4" class="camera-card">
-    <template #title>
-      <h3>Pot with a plant</h3>
-    </template>
-    <template #img>
-      <img src="https://vuesax.com/foto2.jpg" alt="" />
-    </template>
-    <template #text>
-      <p v-if="false">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-      </p>
-    </template>
-    <template #interactions>
-      <vs-button class="btn-chat" shadow primary>
-        <!--<i class="bx bx-chat"></i>-->
-        <span class="span">
-          54
-        </span>
-      </vs-button>
-    </template>
-  </vs-card>
+  <div class="camera-card" @click="cardClick">
+    <div class="camera-img">
+      <img :src="card.src" />
+    </div>
+    <div class="camera-label">
+      {{ card.label }}
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from "vue-property-decorator";
+import { Vue, Component, Prop, Emit } from "vue-property-decorator";
+import { CardData } from "~/config/camera";
 
-@Component
+@Component({ components: {} })
 export default class CameraCard extends Vue {
-  @Prop(Number) readonly propA: number | undefined;
+  @Prop() card: CardData;
+
+  @Emit("cardClick")
+  cardClick() {
+    console.log(this.card);
+    return this.card;
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-.camera-card {
-  //width: 90%;
+.camera {
+  &-card {
+    max-width: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 25px;
+    overflow: hidden;
+    transition: 0.15s all ease;
+  }
+  &-img {
+    margin-top: -12px;
+  }
+
+  &-label {
+    width: 100%;
+    color: black;
+    font-size: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(
+      rgba(255, 255, 255, 0.75),
+      rgb(255, 255, 255)
+    );
+    text-transform: uppercase;
+  }
+}
+
+.camera-card:hover {
+  transform: scale(0.85);
 }
 </style>

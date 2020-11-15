@@ -19,15 +19,11 @@
     "experimentalDecorators": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": [
-        "./*"
-      ],
-      "@/*": [
-        "./*"
-      ],
-      "components/*": ["@/components/*"],
-      "config/*": ["@/config/*"],
-      "assets/*": ["@/assets/*"],
+      "~/*": ["./*"],
+      "@/*": ["./*"],
+      "components/*": ["components/*"],
+      "config/*": ["config/*"],
+      "assets/*": ["assets/*"],
     },
     "types": [
       "@types/node",
