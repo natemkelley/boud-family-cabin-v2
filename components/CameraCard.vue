@@ -1,5 +1,5 @@
 <template>
-  <vs-card type="2">
+  <vs-card type="4" class="camera-card">
     <template #title>
       <h3>Pot with a plant</h3>
     </template>
@@ -7,7 +7,7 @@
       <img src="https://vuesax.com/foto2.jpg" alt="" />
     </template>
     <template #text>
-      <p>
+      <p v-if="false">
         Lorem ipsum dolor sit amet consectetur, adipisicing elit.
       </p>
     </template>
@@ -25,11 +25,14 @@
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
 
-
 @Component
 export default class CameraCard extends Vue {
   @Prop(Number) readonly propA: number | undefined;
-
 }
 </script>
-</script>
+
+<style lang="scss" scoped>
+.camera-card {
+  //width: 90%;
+}
+</style>

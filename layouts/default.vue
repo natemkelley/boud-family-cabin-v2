@@ -28,6 +28,6 @@ export default class defaultLayout extends Vue {
 }
 
 .container {
-  padding: 15px;
+  padding: 25px;
 }
 </style>
