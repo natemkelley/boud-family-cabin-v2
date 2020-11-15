@@ -29,7 +29,7 @@ export default {
 
   loading: {
     name: "folding-cube",
-    color: "#d66354",
+    color: process.env.theme,
   },
 
   pageTransition: {
