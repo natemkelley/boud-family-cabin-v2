@@ -44,7 +44,7 @@ export default class CameraCard extends Vue {
     width: 100%;
     color: black;
     font-size: 16px;
-    padding: 20px;
+    padding: 12.5px;
     display: flex;
     align-items: center;
     justify-content: center;
