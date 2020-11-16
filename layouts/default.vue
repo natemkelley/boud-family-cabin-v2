@@ -22,12 +22,14 @@ export default class defaultLayout extends Vue {
 .container {
   height: 100%;
   position: relative;
-  min-height: 100vh;
+  max-height: 100vh;
   overflow-x: hidden;
-  padding-bottom: 120px; //TODO
+  //padding-bottom: 120px;
 }
 
 .container {
   padding: 25px;
+  height: calc(100% - 25px);
+  overflow-y: auto;
 }
 </style>

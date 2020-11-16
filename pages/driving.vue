@@ -1,6 +1,10 @@
 <template>
   <div class="swiper-ind">
-    <SwiperCard @cardClick="cardClick" :cardData="cameraData" />
+    <SwiperCard
+      class="initial-card"
+      @cardClick="cardClick"
+      :cardData="cameraData"
+    />
   </div>
 </template>
 
@@ -21,5 +25,9 @@ export default class DrivingPage extends Vue {
 .swiper-ind {
   margin-left: -24px;
   margin-right: -24px;
+}
+
+.initial-card {
+  padding-top: 20px;
 }
 </style>
