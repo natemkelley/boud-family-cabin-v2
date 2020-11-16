@@ -19,7 +19,6 @@ export default class CameraCard extends Vue {
 
   @Emit("cardClick")
   cardClick() {
-    console.log(this.card);
     return this.card;
   }
 }

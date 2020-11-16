@@ -107,7 +107,7 @@ $box-shadow: 0px -1px 5px #0000001f;
     border-radius: $border-radius;
     overflow: hidden;
     box-shadow: $box-shadow;
-    z-index: 999;
+    z-index: 99;
   }
 
   &-secondary {
@@ -118,7 +118,7 @@ $box-shadow: 0px -1px 5px #0000001f;
     padding-bottom: $nav-height;
     width: 100%;
     background-color: #f5f5f5;
-    z-index: 998;
+    z-index: 98;
     border-radius: $border-radius;
     box-shadow: $box-shadow;
 

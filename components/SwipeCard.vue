@@ -1,9 +1,18 @@
 <template>
-  <swiper class="swiper" :options="swiperOption" @slideChange="slideChange">
-    <swiper-slide v-for="card in cardData" :key="card.id">
-      <CameraCard :card="card" />
-    </swiper-slide>
-  </swiper>
+  <div>
+    <swiper class="swiper" :options="swiperOption" @slideChange="slideChange">
+      <swiper-slide v-for="card in cardData" :key="card.id">
+        <CameraCard :card="card" @cardClick="cardClicked" />
+      </swiper-slide>
+    </swiper>
+    <transition name="page">
+      <ImageModal
+        v-if="activeCard"
+        :card="activeCard"
+        @cardClick="cardClicked"
+      />
+    </transition>
+  </div>
 </template>
 
 <script lang="ts">
@@ -12,16 +21,20 @@ import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 import CameraCard from "@/components/CameraCard.vue";
 import "swiper/swiper-bundle.min.css";
 import { CardData } from "@/config/camera";
+import ImageModal from "@/components/imageModal.vue";
 
 @Component({
   components: {
     Swiper,
     SwiperSlide,
     CameraCard,
+    ImageModal,
   },
 })
 export default class SwipeCard extends Vue {
   @Prop() cardData: CardData;
+
+  activeCard: CardData | null = null;
 
   swiperOption = {
     slidesPerView: "auto",
@@ -34,6 +47,10 @@ export default class SwipeCard extends Vue {
   slideTo(number: number) {
     const swiper = (this.$refs.mySwiper as any).$swiper;
     swiper.slideTo(number, 1000, false);
+  }
+
+  cardClicked(cardData: CardData | null) {
+    this.activeCard = cardData;
   }
 
   @Emit("slideChange")
