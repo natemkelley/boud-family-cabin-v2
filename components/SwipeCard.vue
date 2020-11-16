@@ -7,9 +7,9 @@
     </swiper>
     <transition name="page">
       <ImageModal
-        v-if="activeCard"
+        v-if="showModal"
         :card="activeCard"
-        @cardClick="cardClicked"
+        @closeModal="toggleModal(false)"
       />
     </transition>
   </div>
@@ -32,9 +32,10 @@ import ImageModal from "@/components/imageModal.vue";
   },
 })
 export default class SwipeCard extends Vue {
-  @Prop() cardData: CardData;
+  @Prop() cardData: CardData[];
 
   activeCard: CardData | null = null;
+  showModal = false;
 
   swiperOption = {
     slidesPerView: "auto",
@@ -51,12 +52,22 @@ export default class SwipeCard extends Vue {
 
   cardClicked(cardData: CardData | null) {
     this.activeCard = cardData;
+    this.toggleModal(true);
+  }
+
+  toggleModal(show: boolean) {
+    this.showModal = show;
+  }
+
+  created() {
+    const startingIndex = 0;
+    this.activeCard = this.cardData[startingIndex];
+    this.slideChange({ realIndex: startingIndex });
   }
 
   @Emit("slideChange")
-  slideChange(slideData: any) {
-    const { activeIndex, realIndex } = slideData;
-    console.log("changed", activeIndex);
+  slideChange({ realIndex }: { realIndex: number }) {
+    return this.cardData[realIndex];
   }
 }
 </script>

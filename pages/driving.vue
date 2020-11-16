@@ -2,7 +2,7 @@
   <div class="swiper-ind">
     <SwiperCard
       class="initial-card"
-      @cardClick="cardClick"
+      @slideChange="slideChange"
       :cardData="cameraData"
     />
   </div>
@@ -12,12 +12,16 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
 import SwiperCard from "@/components/SwipeCard.vue";
 import { getCameraData } from "@/config/camera.ts";
+import CameraCard from "~/components/CameraCard.vue";
 
 @Component({ components: { SwiperCard } })
 export default class DrivingPage extends Vue {
   cameraData = getCameraData();
+  activeCamera: CameraCard | null = null;
 
-  cardClick() {}
+  slideChange(card: CameraCard) {
+    this.activeCamera = card;
+  }
 }
 </script>
 

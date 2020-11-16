@@ -1,10 +1,13 @@
 <template>
-  <div class="image-modal" @click="closeModal" ref="content">
-    <div class="image-modal-image">
-      <PinchZoom :limitZoom="3">
-        <img :src="card.src" @load="imageLoaded" />
-      </PinchZoom>
-    </div>
+  <div>
+    <PinchZoom
+      class="image-modal"
+      @click.native="closeModal"
+      ref="content"
+      :limitZoom="3"
+    >
+      <img :src="card.src" @load="imageLoaded" />
+    </PinchZoom>
   </div>
 </template>
 
@@ -30,12 +33,12 @@ export default class ImageModal extends Vue {
 
   imageLoaded() {
     //@ts-ignore
-    this.loading?.close();
+    this.loading.close();
   }
 
-  @Emit("cardClick")
+  @Emit("closeModal")
   closeModal() {
-    return null;
+    return false;
   }
 }
 </script>
@@ -47,7 +50,7 @@ export default class ImageModal extends Vue {
   left: 0;
   height: 100vh;
   width: 100vw;
-  background: rgba(32, 32, 32, 0.75);
+  background: rgba(32, 32, 32, 0.65) !important;
   backdrop-filter: blur(10px);
   z-index: 999;
   color: black;
