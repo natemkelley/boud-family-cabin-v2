@@ -1,9 +1,8 @@
 <template>
-  <div class="image-modal" @click="closeModal">
-    <div v-if="card.src" class="image-modal-image">
-      <!--TODO ADD LAODER -->
+  <div class="image-modal" @click="closeModal" ref="content">
+    <div class="image-modal-image">
       <PinchZoom :limitZoom="3">
-        <img :src="card.src" />
+        <img :src="card.src" @load="imageLoaded" />
       </PinchZoom>
     </div>
   </div>
@@ -18,8 +17,21 @@ import PinchZoom from "vue-pinch-zoom";
 export default class ImageModal extends Vue {
   @Prop() card: CardData;
 
-  src =
-    "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjExMDk0fQ&auto=format&fit=crop&w=1950&q=80";
+  loading = null;
+
+  created() {
+    this.loading = this.$vs.loading({
+      target: this.$refs.content,
+      color: "#fff",
+      background: "#000",
+      scale: 2,
+    });
+  }
+
+  imageLoaded() {
+    //@ts-ignore
+    this.loading?.close();
+  }
 
   @Emit("cardClick")
   closeModal() {

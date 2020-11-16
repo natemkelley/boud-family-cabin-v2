@@ -29,6 +29,7 @@
       "@types/node",
       "@nuxt/types",
       "@nuxtjs/firebase",
+      "vuesax/types",
     ]
   },
   "exclude": [
@@ -36,5 +37,5 @@
     ".nuxt",
     "dist"
   ],
-  "include": ["typings/**/*.ts"],
+  "include": ["typings/**/*.ts","vuesax/types"],
 }
