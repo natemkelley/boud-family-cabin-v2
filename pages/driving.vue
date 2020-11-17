@@ -5,7 +5,7 @@
       @slideChange="slideChange"
       :cardData="cameraData"
     />
-    <MapCard />
+    <MapCard class="second-card" />
   </div>
 </template>
 
@@ -13,15 +13,14 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
 import SwiperCard from "@/components/SwipeCard.vue";
 import MapCard from "@/components/MapCard.vue";
-import { getCameraData } from "@/config/camera.ts";
-import CameraCard from "@/components/CameraCard.vue";
+import { CardData, getCameraData } from "@/config/camera.ts";
 
 @Component({ components: { SwiperCard, MapCard } })
 export default class DrivingPage extends Vue {
   cameraData = getCameraData();
-  activeCamera: CameraCard | null = null;
+  activeCamera: CardData | null = null;
 
-  slideChange(card: CameraCard) {
+  slideChange(card: CardData) {
     this.activeCamera = card;
   }
 }
@@ -33,7 +32,10 @@ export default class DrivingPage extends Vue {
   margin-right: -24px;
 }
 
-.initial-card {
-  padding-top: 20px;
+.second-card {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

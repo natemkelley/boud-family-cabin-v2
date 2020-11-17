@@ -1,24 +1,20 @@
 <template>
-  <div>
-    <PinchZoom
-      class="image-modal"
-      @click.native="closeModal"
-      ref="content"
-      :limitZoom="3"
-    >
+  <div class="image-modal" @click="closeModal">
+    <div class="image-modal-image" ref="content" :limitZoom="2">
       <img :src="card.src" @load="imageLoaded" />
-    </PinchZoom>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop, Emit } from "vue-property-decorator";
 import { CardData } from "~/config/camera";
-import PinchZoom from "vue-pinch-zoom";
 
-@Component({ components: { PinchZoom } })
+@Component({ components: {} })
 export default class ImageModal extends Vue {
   @Prop() card: CardData;
+
+  //TODO CREATE GALLERY
 
   loading = null;
 
@@ -61,10 +57,12 @@ export default class ImageModal extends Vue {
 
   &-image {
     width: 100%;
-    height: 70%;
+    height: 90%;
     display: flex;
+    background: none;
     justify-content: center;
     align-items: center;
+    background-color: rgba(0, 0, 0, 0) !important;
   }
   img {
     min-width: 100vw;

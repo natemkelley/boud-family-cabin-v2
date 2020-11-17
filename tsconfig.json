@@ -37,5 +37,5 @@
     ".nuxt",
     "dist"
   ],
-  "include": ["typings/**/*.ts","vuesax/types"],
+  "include": ["typings/**/*.ts"],
 }

@@ -86,6 +86,7 @@ export default class SwipeCard extends Vue {
   justify-content: center;
   align-items: center;
   width: 95%;
-  max-width: 350px;
+  max-width: 450px;
+  background: yellow;
 }
 </style>

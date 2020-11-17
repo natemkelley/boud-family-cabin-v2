@@ -27,7 +27,7 @@ export default class CameraCard extends Vue {
 <style lang="scss" scoped>
 .camera {
   &-card {
-    max-width: 360px;
+    //max-width: 360px;
     display: flex;
     justify-content: center;
     align-items: center;
