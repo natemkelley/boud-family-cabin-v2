@@ -5,7 +5,9 @@
       @slideChange="slideChange"
       :cardData="cameraData"
     />
-    <MapCard class="second-card" />
+    <div class="second-card">
+      <MapCard class="center-card" />
+    </div>
   </div>
 </template>
 
@@ -30,12 +32,22 @@ export default class DrivingPage extends Vue {
 .swiper-ind {
   margin-left: -24px;
   margin-right: -24px;
+
+  display: flex;
+  flex-flow: column;
+  height: calc(100vh - 63px);
+}
+
+.initial-card {
+  min-height: 275px;
 }
 
 .second-card {
-  margin-top: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 20px;
+  flex: 1;
+  margin-bottom: calc(43px);
 }
 </style>

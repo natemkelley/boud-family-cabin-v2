@@ -28,6 +28,8 @@ export default class CameraCard extends Vue {
 .camera {
   &-card {
     //max-width: 360px;
+
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -38,6 +40,10 @@ export default class CameraCard extends Vue {
   }
   &-img {
     margin-top: -12px;
+    width: 100%;
+    img {
+      width: 100%;
+    }
   }
 
   &-label {

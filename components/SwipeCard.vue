@@ -39,7 +39,7 @@ export default class SwipeCard extends Vue {
 
   swiperOption = {
     slidesPerView: "auto",
-    spaceBetween: -10,
+    spaceBetween: 15,
     centeredSlides: true,
     loop: false,
     autoHeight: true,
@@ -86,7 +86,6 @@ export default class SwipeCard extends Vue {
   justify-content: center;
   align-items: center;
   width: 95%;
-  max-width: 450px;
-  background: yellow;
+  max-width: 85vw; //max-width:350px
 }
 </style>
