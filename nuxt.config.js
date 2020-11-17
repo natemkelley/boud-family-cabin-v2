@@ -27,6 +27,10 @@ export default {
     "~/assets/css/main.scss",
   ],
 
+  env: {
+    googleMapsKey: process.env.googleMapsKey,
+  },
+
   loading: {
     name: "folding-cube",
     color: process.env.theme,
@@ -38,7 +42,9 @@ export default {
   },
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: ["@/plugins/vuesax"],
+  plugins: ["@/plugins/vuesax", "@/plugins/googleMaps.js"],
+
+  transpile: [/^vue2-google-maps($|\/)/],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,

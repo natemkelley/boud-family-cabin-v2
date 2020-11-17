@@ -5,16 +5,18 @@
       @slideChange="slideChange"
       :cardData="cameraData"
     />
+    <MapCard />
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
 import SwiperCard from "@/components/SwipeCard.vue";
+import MapCard from "@/components/MapCard.vue";
 import { getCameraData } from "@/config/camera.ts";
-import CameraCard from "~/components/CameraCard.vue";
+import CameraCard from "@/components/CameraCard.vue";
 
-@Component({ components: { SwiperCard } })
+@Component({ components: { SwiperCard, MapCard } })
 export default class DrivingPage extends Vue {
   cameraData = getCameraData();
   activeCamera: CameraCard | null = null;
