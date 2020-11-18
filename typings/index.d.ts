@@ -6,3 +6,5 @@ declare module "*.png" {
 declare module "*.svg";
 
 declare module "*.svg?inline";
+
+declare module "vue2-google-maps";

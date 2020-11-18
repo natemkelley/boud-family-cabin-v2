@@ -1,6 +1,11 @@
 <template>
   <div>
-    <swiper class="swiper" :options="swiperOption" @slideChange="slideChange">
+    <swiper
+      ref="mySwiper"
+      class="swiper"
+      :options="swiperOption"
+      @slideChange="slideChange"
+    >
       <swiper-slide v-for="card in cardData" :key="card.id">
         <CameraCard :card="card" @cardClick="cardClicked" />
       </swiper-slide>
@@ -16,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Emit } from "vue-property-decorator";
+import { Vue, Component, Prop, Emit, Watch } from "vue-property-decorator";
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 import CameraCard from "@/components/CameraCard.vue";
 import "swiper/swiper-bundle.min.css";
@@ -33,6 +38,7 @@ import ImageModal from "@/components/imageModal.vue";
 })
 export default class SwipeCard extends Vue {
   @Prop() cardData: CardData[];
+  @Prop() activeCamera: CardData;
 
   activeCard: CardData | null = null;
   showModal = false;
@@ -46,8 +52,10 @@ export default class SwipeCard extends Vue {
   };
 
   slideTo(number: number) {
-    const swiper = (this.$refs.mySwiper as any).$swiper;
-    swiper.slideTo(number, 1000, false);
+    if (this.$refs.mySwiper) {
+      const swiper = (this.$refs.mySwiper as any).$swiper;
+      swiper.slideTo(number, 550, false);
+    }
   }
 
   cardClicked(cardData: CardData | null) {
@@ -59,15 +67,22 @@ export default class SwipeCard extends Vue {
     this.showModal = show;
   }
 
-  created() {
+  mounted() {
     const startingIndex = 0;
     this.activeCard = this.cardData[startingIndex];
     this.slideChange({ realIndex: startingIndex });
   }
 
   @Emit("slideChange")
-  slideChange({ realIndex }: { realIndex: number }) {
+  slideChange(data: any) {
+    const { realIndex } = data;
     return this.cardData[realIndex];
+  }
+
+  @Watch("activeCamera")
+  activeCameraChange() {
+    const cardIndex = this.activeCamera.id;
+    this.slideTo(cardIndex - 1);
   }
 }
 </script>

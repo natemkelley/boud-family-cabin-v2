@@ -4,9 +4,15 @@
       class="initial-card"
       @slideChange="slideChange"
       :cardData="cameraData"
+      :activeCamera="activeCamera"
     />
     <div class="second-card">
-      <MapCard class="center-card" />
+      <MapCard
+        class="center-card"
+        :cameraData="cameraData"
+        :activeCamera="activeCamera"
+        @markerClicked="markerClicked"
+      />
     </div>
   </div>
 </template>
@@ -21,6 +27,14 @@ import { CardData, getCameraData } from "@/config/camera.ts";
 export default class DrivingPage extends Vue {
   cameraData = getCameraData();
   activeCamera: CardData | null = null;
+
+  created() {
+    this.activeCamera = this.cameraData[0];
+  }
+
+  markerClicked(cardData: CardData) {
+    this.activeCamera = cardData;
+  }
 
   slideChange(card: CardData) {
     this.activeCamera = card;
