@@ -2,8 +2,8 @@ export interface CardData {
   id: number;
   src: string;
   timeRefreshed: Date;
-  lat: string;
-  lon: string;
+  lat: string | number;
+  lon: string | number;
   label: string;
   title: string;
 }
@@ -16,7 +16,6 @@ const cameraData = [
     lat: 40.619458,
     lon: -111.789789,
     title: "",
-    //40.619458, -111.789789
   },
   {
     src: "https://udottraffic.utah.gov/1_devices/aux16212.jpeg",
@@ -25,7 +24,6 @@ const cameraData = [
     lat: 40.623998,
     lon: -111.750147,
     title: "",
-    //40.623998, -111.750147
   },
   {
     src: "https://udottraffic.utah.gov/1_devices/aux16213.jpeg",
@@ -34,7 +32,6 @@ const cameraData = [
     lat: 40.649208,
     lon: -111.661005,
     title: "",
-    //40.649208, -111.661005
   },
   {
     src: "https://udottraffic.utah.gov/1_devices/aux16215.jpeg",
@@ -43,7 +40,6 @@ const cameraData = [
     lat: 40.649663,
     lon: -111.647041,
     title: "",
-    //40.649663, -111.647041
   },
   {
     src: "https://udottraffic.utah.gov/1_devices/aux16216.jpeg",
@@ -52,7 +48,22 @@ const cameraData = [
     lat: 40.638009,
     lon: -111.61962,
     title: "",
-    //40.638009, -111.619620
+  },
+  {
+    src: "https://webcams.solitudemountain.com/LCMC.jpg",
+    label: "Solitude Resort Lodge",
+    timeRefreshed: "",
+    lat: 40.624282,
+    lon: -111.597931,
+    title: "",
+  },
+  {
+    src: "https://i.ytimg.com/vi/7-fShR1SuEU/maxresdefault_live.jpg",
+    label: "Brighton Ski Lot",
+    timeRefreshed: "",
+    lat: 40.599523,
+    lon: -111.584219,
+    title: "",
   },
 ];
 
