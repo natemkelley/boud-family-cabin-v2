@@ -65,7 +65,7 @@ export default {
   googleFonts: {
     preload: true,
     families: {
-      "Open+Sans": { wght: [100, 400] },
+      Poppins: { wght: [100, 400, 700] },
       Roboto: true, //TODO REMOVE
     },
   },
@@ -94,7 +94,13 @@ export default {
           measurementId: process.env.measurementId,
         },
         services: {
-          auth: true,
+          auth: {
+            initialize: {
+              onAuthStateChangedMutation: "auth/ON_AUTH_STATE_CHANGED_MUTATION",
+              onAuthStateChangedAction: "auth/onAuthStateChangedAction",
+              subscribeManually: false,
+            },
+          },
           firestore: true,
           functions: false,
           storage: false,

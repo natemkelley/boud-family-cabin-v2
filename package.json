@@ -18,6 +18,7 @@
     "@nuxtjs/pwa": "^3.0.2",
     "@nuxtjs/style-resources": "^1.0.0",
     "@types/lodash": "^4.14.144",
+    "@typescript-eslint/experimental-utils": "^4.8.1",
     "cookie-parser": "^1.4.5",
     "core-js": "^3.6.5",
     "file-loader": "^6.2.0",
@@ -36,7 +37,9 @@
     "vue-class-component": "^7.2.6",
     "vue-property-decorator": "^9.0.2",
     "vue2-google-maps": "^0.10.7",
-    "vuesax": "^4.0.1-alpha.25"
+    "vuesax": "^4.0.1-alpha.25",
+    "vuex-class": "^0.3.2",
+    "vuex-module-decorators": "^1.0.1"
   },
   "devDependencies": {
     "@nuxt/types": "^2.14.6",
@@ -46,6 +49,8 @@
     "fibers": "^5.0.0",
     "sass": "^1.29.0",
     "sass-loader": "^10.1.0",
+    "stylus": "^0.54.8",
+    "stylus-loader": "^4.3.0",
     "vue-svg-loader": "^0.16.0"
   }
 }
