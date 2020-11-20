@@ -28,7 +28,7 @@
 
               <label for="Text1" class="vs-input__label">Info</label
               ><span class="vs-input__icon">
-                <img src="@/assets/logos/pencil.png" />
+                <img src="@/assets/logos/info.png" />
               </span>
               <div class="vs-input__affects">
                 <div class="vs-input__affects__1"></div>
@@ -67,6 +67,7 @@
 
 <script lang="ts">
 import { Vue, Component, PropSync, Emit } from "vue-property-decorator";
+import { v4 as uuidv4 } from "uuid";
 
 @Component({ components: {} })
 export default class AddCard extends Vue {
@@ -76,18 +77,26 @@ export default class AddCard extends Vue {
   textarea = "";
   savingCard = false;
 
-  addCard() {
+  async addCard() {
     this.savingCard = true;
+
+    const uuid = uuidv4();
     const cardData = {
-      header: this.header,
-      textarea: this.textarea,
+      title: this.header,
+      info: this.textarea,
       createdAt: new Date(),
+      uuid,
     };
+
+    await this.$fireStore
+      .collection("cabin-cards")
+      .doc(uuid)
+      .set(cardData);
 
     setTimeout(() => {
       this.activeSync = false;
       this.savingCard = false;
-    }, 500);
+    }, 250);
   }
 }
 </script>

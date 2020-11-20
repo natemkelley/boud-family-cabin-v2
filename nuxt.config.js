@@ -54,23 +54,12 @@ export default {
     [
       // https://go.nuxtjs.dev/typescript
       "@nuxt/typescript-build",
-      "@nuxtjs/google-fonts",
       "@nuxtjs/dotenv",
       {
         filename: ".env",
       },
     ],
   ],
-
-  googleFonts: {
-    preload: true,
-    families: {
-      Poppins: { wght: [100, 400, 700] },
-      Roboto: true, //TODO REMOVE
-    },
-  },
-
-  //      ,
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
