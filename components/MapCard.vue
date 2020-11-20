@@ -63,7 +63,7 @@ export default class MapCard extends Vue {
 
       map.panTo(myLatLng);
 
-      if (currentZoomLevel != goodZoom) {
+      if (currentZoomLevel < goodZoom) {
         map.setZoom(goodZoom);
       }
     });

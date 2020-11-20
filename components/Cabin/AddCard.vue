@@ -50,6 +50,8 @@
       </template>
     </vs-dialog>
 
+    <svgicon name="plu" color="white"></svgicon>
+
     <vs-button
       v-show="!active"
       class="add-card-btn"
@@ -60,16 +62,18 @@
       icon
       floating
     >
-      <img src="@/assets/logos/plus.png" />
+      <NateIcons icon="plus" color="white" :gradient="false" :size="18" />
     </vs-button>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, PropSync, Emit } from "vue-property-decorator";
+import NateIcons from "@/components/NateIcons.vue";
+import { cabinCardsCollection } from "@/config/firebaseConfig";
 import { v4 as uuidv4 } from "uuid";
 
-@Component({ components: {} })
+@Component({ components: { NateIcons } })
 export default class AddCard extends Vue {
   @PropSync("active", { type: Boolean }) activeSync!: boolean;
 
@@ -85,11 +89,12 @@ export default class AddCard extends Vue {
       title: this.header,
       info: this.textarea,
       createdAt: new Date(),
+      active: true,
       uuid,
     };
 
     await this.$fireStore
-      .collection("cabin-cards")
+      .collection(cabinCardsCollection)
       .doc(uuid)
       .set(cardData);
 
@@ -114,9 +119,11 @@ export default class AddCard extends Vue {
     input,
     textarea {
       width: 100%;
+      font-family: "Poppins";
     }
   }
-  img {
+  img,
+  svg {
     height: 16px;
   }
 }
@@ -127,7 +134,8 @@ export default class AddCard extends Vue {
   right: 21px;
   padding: 10px 10px;
   opacity: 0.9;
-  img {
+  img,
+  svg {
     margin: 0 !important;
   }
 }

@@ -18,6 +18,7 @@
     "@nuxtjs/pwa": "^3.0.2",
     "@nuxtjs/style-resources": "^1.0.0",
     "@types/lodash": "^4.14.144",
+    "@types/uuid": "^8.3.0",
     "@typescript-eslint/experimental-utils": "^4.8.1",
     "cookie-parser": "^1.4.5",
     "core-js": "^3.6.5",
