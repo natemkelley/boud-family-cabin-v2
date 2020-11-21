@@ -1,6 +1,6 @@
 <template>
   <div>
-    <transition name="bounce">
+    <ZoomCenterTransition group :duration="750" :delay="150">
       <CabinCard
         v-for="card in cabinCards"
         :key="card.uuid"
@@ -8,8 +8,15 @@
         @deleteClicked="toggleCardToDelete"
       ></CabinCard>
 
-      <div v-if="!cabinCards.length">Nothing to see here...</div>
-    </transition>
+      <CabinCard
+        v-if="!cabinCards.length"
+        key="alert"
+        :danger="true"
+        :card="alertCard"
+        :canShowDelet="false"
+        @deleteClicked="toggleCardToDelete"
+      ></CabinCard>
+    </ZoomCenterTransition>
 
     <div ref="loading" class="loading-box"></div>
 
@@ -29,10 +36,10 @@
 
       <template #footer>
         <div class="footer">
-          <vs-button warn gradient flat @click="deleteCard">
+          <vs-button danger size="xl" gradient flat @click="deleteCard">
             Delete Card
           </vs-button>
-          <vs-button @click="cardToDelete = null" dark transparent>
+          <vs-button size="xl" @click="cardToDelete = null" dark transparent>
             Cancel
           </vs-button>
         </div>
@@ -43,24 +50,37 @@
 
 <script lang="ts">
 import { Vue, Component, PropSync, Emit, Prop } from "vue-property-decorator";
-import { cabinCardsCollection, CabinCards } from "@/config/firebaseConfig";
-import CabinCard from "@/components/Cabin/CabinCard.vue";
+import { cabinCardsCollection, CabinCard } from "@/config/firebaseConfig";
+import CabinCardComponent from "@/components/Cabin/CabinCard.vue";
+import { FadeTransition, ZoomCenterTransition } from "vue2-transitions";
 
-@Component({ components: { CabinCard } })
+@Component({
+  components: {
+    CabinCardComponent,
+    ZoomCenterTransition,
+  },
+})
 export default class ViewCabinCards extends Vue {
-  @Prop() cabinCards: CabinCards[];
+  @Prop() cabinCards: CabinCard[];
 
-  cardToDelete: CabinCards | null = null;
+  cardToDelete: CabinCard | null = null;
+
+  alertCard = {
+    title: "No information added",
+    info: `Please use the "+" button below to add some information!`,
+  };
 
   get showModal() {
     return Boolean(this.cardToDelete);
   }
 
-  toggleCardToDelete(card: CabinCards) {
+  toggleCardToDelete(card: CabinCard) {
     this.cardToDelete = card;
   }
 
-  deleteCard(card: CabinCards) {
+  deleteCard() {
+    console.log(this.cardToDelete);
+
     this.$fireStore
       .collection(cabinCardsCollection)
       .doc(this.cardToDelete?.uuid)

@@ -1,6 +1,6 @@
 export const cabinCardsCollection = "cabin-cards";
 
-export interface CabinCards {
+export interface CabinCard {
   title: string;
   info: string;
   createdAt: Date;

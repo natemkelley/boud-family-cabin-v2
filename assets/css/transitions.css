@@ -50,3 +50,21 @@
   opacity: 0;
   transform: translate(-30px, 0);
 }
+
+/* group transition */
+
+.fade-move {
+  transition: transform 5.3s ease-out;
+}
+
+.zoom-move {
+  transition: transform 3.3s ease-out;
+}
+
+.scale-move {
+  transition: transform 3.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+}
+
+.slide-move {
+  transition: transform 3.3s ease-out;
+}

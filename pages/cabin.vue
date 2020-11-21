@@ -7,7 +7,7 @@
       </div>
       <div class="sign-in">
         <vs-button @click="signInWithGoogle" size="xl" gradient block>
-          <img :src="GoogleIcon" /> SIGN WITH GOOGLE
+          <img src="assets/logos/google-white.png" /> SIGN WITH GOOGLE
         </vs-button>
       </div>
     </div>
@@ -21,10 +21,9 @@
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { namespace } from "vuex-class";
-import GoogleIcon from "assets/logos/google-white.png";
 import AddCardModal from "@/components/Cabin/AddCard.vue";
 import ViewCabinCards from "@/components/Cabin/ViewCabinCards.vue";
-import { cabinCardsCollection, CabinCards } from "@/config/firebaseConfig";
+import { cabinCardsCollection, CabinCard } from "@/config/firebaseConfig";
 
 const auth = namespace("auth");
 
@@ -33,9 +32,8 @@ export default class CabinPage extends Vue {
   @auth.State("user") user: any;
   @auth.Getter("isLoggedIn") isLoggedIn: boolean;
 
-  GoogleIcon = GoogleIcon;
   openModal = false;
-  cabinCards: CabinCards[] = [];
+  cabinCards: CabinCard[] = [];
   loading: any = {};
 
   get hasLoaded() {
@@ -54,15 +52,9 @@ export default class CabinPage extends Vue {
   }
 
   signOut() {
-    this.$fireAuth
-      .signOut()
-      .then(() => {
-        // Sign-out successful.
-        console.log("signout");
-      })
-      .catch(function(error) {
-        // An error happened.
-      });
+    this.$fireAuth.signOut().then(() => {
+      console.log("signout");
+    });
   }
 
   mounted() {
@@ -78,8 +70,7 @@ export default class CabinPage extends Vue {
       .collection(cabinCardsCollection)
       .where("active", "==", true)
       .onSnapshot((data) => {
-        this.cabinCards =
-          (data.docs.map((doc) => doc.data()) as CabinCards[]) || [];
+        this.cabinCards = data.docs.map((doc) => doc.data()) as CabinCard[];
         this.loading.close();
       });
   }
@@ -88,7 +79,7 @@ export default class CabinPage extends Vue {
 
 <style scoped lang="scss">
 .cabin {
-  min-height: 75vh;
+  min-height: 85vh;
 }
 
 .sign-in {

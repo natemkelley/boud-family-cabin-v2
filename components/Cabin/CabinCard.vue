@@ -1,14 +1,20 @@
 <template>
-  <div class="card" @click.prevent.stop="cardClickToggle">
-    <div class="header">
-      <h2>{{ card.title }}</h2>
-      <div class="date">{{ formattedDate(card.date) }}</div>
-    </div>
-    <div class="textarea">{{ card.info }}</div>
+  <div class="cabin-card" @click.prevent.stop="cardClickToggle">
+    <vs-alert gradient shadow :danger="danger">
+      <template #title>
+        <div>
+          {{ card.title }}
+          <div class="date" v-if="card.createdAt">
+            {{ formattedDate(card.createdAt) }}
+          </div>
+        </div>
+      </template>
+      <div class="textarea">{{ card.info }}</div>
+    </vs-alert>
 
     <transition name="bounce">
       <vs-button
-        v-show="cardClicked"
+        v-show="cardClicked && canShowDelete"
         @click.prevent.stop="deleteButtonClicked"
         class="delete"
         danger
@@ -25,14 +31,17 @@
 
 <script lang="ts">
 import { Vue, Component, PropSync, Emit, Prop } from "vue-property-decorator";
-import { CabinCards } from "@/config/firebaseConfig";
+import { CabinCard } from "@/config/firebaseConfig";
 import moment from "moment";
 
 @Component({})
 export default class ViewCabinCards extends Vue {
-  @Prop() card: CabinCards;
+  @Prop() card: CabinCard;
+  @Prop() danger: boolean;
+  @Prop({ default: true }) canShowDelete: boolean;
 
   cardClicked = false;
+  active = true;
 
   cardClickToggle() {
     this.cardClicked = !this.cardClicked;
@@ -44,25 +53,28 @@ export default class ViewCabinCards extends Vue {
     return this.card;
   }
 
-  formattedDate(date: Date) {
-    return moment(date).format("ll");
+  formattedDate(date: FirebaseFirestore.Timestamp) {
+    return moment(date.toDate()).format("ll");
   }
 }
 </script>
 
-<style lang="scss" scoped>
-.card {
+<style lang="scss">
+.cabin-card {
   position: relative;
   &:not(:first-child) {
     margin-top: 15px;
   }
   .date {
-    color: rgba(var(--vs-primary));
+    font-size: 0.8em;
+    margin-top: 10px;
+    color: white//rgba(var(--vs-primary));
   }
   .delete {
     position: absolute;
     right: -20px;
     top: -15px;
+    z-index: 99;
   }
 }
 </style>

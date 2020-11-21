@@ -12,7 +12,7 @@
           </template>
         </vs-input>
 
-        <div class="test">
+        <div class="text-area">
           <div
             class="vs-input-parent vs-input-parent--state-null vs-component--primary"
             placeholder="Info"
@@ -43,7 +43,13 @@
 
       <template #footer>
         <div class="footer-dialog">
-          <vs-button block @click="addCard" :loading="savingCard" gradient>
+          <vs-button
+            size="xl"
+            block
+            @click="addCard"
+            :loading="savingCard"
+            gradient
+          >
             Add Card
           </vs-button>
         </div>
@@ -70,7 +76,7 @@
 <script lang="ts">
 import { Vue, Component, PropSync, Emit } from "vue-property-decorator";
 import NateIcons from "@/components/NateIcons.vue";
-import { cabinCardsCollection } from "@/config/firebaseConfig";
+import { CabinCard, cabinCardsCollection } from "@/config/firebaseConfig";
 import { v4 as uuidv4 } from "uuid";
 
 @Component({ components: { NateIcons } })
@@ -85,7 +91,8 @@ export default class AddCard extends Vue {
     this.savingCard = true;
 
     const uuid = uuidv4();
-    const cardData = {
+
+    const cardData: CabinCard = {
       title: this.header,
       info: this.textarea,
       createdAt: new Date(),
@@ -101,7 +108,7 @@ export default class AddCard extends Vue {
     setTimeout(() => {
       this.activeSync = false;
       this.savingCard = false;
-    }, 250);
+    }, 100);
   }
 }
 </script>
