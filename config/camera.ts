@@ -57,14 +57,15 @@ const cameraData = [
     lon: -111.597931,
     title: "",
   },
-  /*{
-    src: "https://i.ytimg.com/vi/7-fShR1SuEU/maxresdefault_live.jpg",
+  {
+    src:
+      "https://www.skiutah.com/members/brighton/webcams/brighton-parking-lot",
     label: "Brighton Ski Lot",
     timeRefreshed: "",
     lat: 40.599523,
     lon: -111.584219,
     title: "",
-  },*/
+  },
 ];
 
 export const getCameraData = () => {

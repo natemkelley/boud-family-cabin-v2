@@ -40,7 +40,7 @@ export default class CameraCard extends Vue {
   &-img {
     margin-top: -12px;
     width: 100%;
-    min-height: 235px;
+    min-height: 29vh;
     display: flex;
     justify-content: center;
     align-items: center;

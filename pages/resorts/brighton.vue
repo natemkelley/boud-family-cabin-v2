@@ -1,5 +1,14 @@
 <template>
-  <div>brighton</div>
+  <div>
+    <iframe
+      id="vr-element"
+      src="https://maps.ourkin.com/locations/11523/atlasvr/winter?weather=false&amp;toggled=true&amp;toggle[embed]=off"
+      data-vr-src="https://maps.ourkin.com/locations/11523/atlasvr/winter?weather=false&amp;toggled=true&amp;toggle[embed]=off"
+      allowfullscreen=""
+      class="active"
+    >
+    </iframe>
+  </div>
 </template>
 
 <script lang="ts">
