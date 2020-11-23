@@ -29,6 +29,7 @@ export default class CameraCard extends Vue {
   &-card {
     max-width: 50vh;
     width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -36,10 +37,12 @@ export default class CameraCard extends Vue {
     border-radius: 25px;
     overflow: hidden;
     transition: 0.15s all ease;
+    //NEW
   }
   &-img {
     margin-top: -12px;
     width: 100%;
+    height: 100%;
     min-height: 29vh;
     display: flex;
     justify-content: center;
@@ -66,7 +69,9 @@ export default class CameraCard extends Vue {
   }
 }
 
-.camera-card:hover {
-  transform: scale(0.85);
+.camera-card {
+  &:hover {
+    transform: scale(0.85);
+  }
 }
 </style>

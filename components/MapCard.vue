@@ -78,6 +78,14 @@ export default class MapCard extends Vue {
   activeCameraChange() {
     this.panTo(this.activeCamera);
   }
+
+  async mounted() {
+    //@ts-ignore
+    const mymap = await this.$refs.map.$mapPromise;
+    //@ts-ignore
+    const trafficLayer = new google.maps.TrafficLayer();
+    trafficLayer.setMap(mymap);
+  }
 }
 </script>
 

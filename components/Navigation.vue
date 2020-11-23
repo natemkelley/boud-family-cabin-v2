@@ -21,6 +21,7 @@
             v-for="nav in primaryNavigation"
             :key="nav.icon"
             :to="nav.link"
+            class="navigation-link"
           >
             <NateIcons :icon="nav.icon" :color="activeLinkColor(nav.link)" />
           </NuxtLink>
@@ -133,6 +134,13 @@ $box-shadow: 0px -1px 5px #0000001f;
     justify-content: space-around;
     align-items: center;
     height: 100%;
+  }
+
+  &-link {
+    transition: 200ms ease;
+    &:hover {
+      transform: scale(0.85);
+    }
   }
 }
 </style>

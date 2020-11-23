@@ -48,7 +48,7 @@ export default class SwipeCard extends Vue {
     spaceBetween: 15,
     centeredSlides: true,
     loop: false,
-    autoHeight: true,
+    autoHeight: false,
   };
 
   slideTo(number: number) {
@@ -95,6 +95,7 @@ export default class SwipeCard extends Vue {
 
 .swiper-slide {
   text-align: center;
+  height: auto;
 
   /* Center slide text vertically */
   display: flex;

@@ -141,9 +141,13 @@ export default class AddCard extends Vue {
   right: 21px;
   padding: 10px 10px;
   opacity: 0.9;
+  transition: 250ms all;
   img,
   svg {
     margin: 0 !important;
+  }
+  &:hover {
+    transform: scale(0.85);
   }
 }
 </style>

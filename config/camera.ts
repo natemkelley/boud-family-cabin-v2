@@ -51,12 +51,21 @@ const cameraData = [
   },
   {
     src: "https://webcams.solitudemountain.com/LCMC.jpg",
-    label: "Solitude Resort Lodge",
+    label: "Solitude - Mine Camp Lodge",
     timeRefreshed: "",
-    lat: 40.624282,
-    lon: -111.597931,
+    lat: 40.619413,
+    lon: -111.594717,
     title: "",
   },
+  {
+    src: "https://webcams.solitudemountain.com/rh1.jpg",
+    label: "Solitude - Last Chance Lodge",
+    timeRefreshed: "",
+    lat: 40.62367,
+    lon: -111.598285,
+    title: "",
+  },
+  //
   {
     src:
       "https://www.skiutah.com/members/brighton/webcams/brighton-parking-lot",
