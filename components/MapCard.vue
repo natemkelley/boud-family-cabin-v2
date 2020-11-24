@@ -11,7 +11,7 @@
         v-for="(m, index) in cameraData"
         :position="createMarker(m)"
         :clickable="true"
-        :draggable="true"
+        :draggable="false"
         @click="mapMarkerClicked(m)"
       />
     </GmapMap>
@@ -59,7 +59,7 @@ export default class MapCard extends Vue {
     //@ts-ignore
     this.$refs.map.$mapPromise.then((map) => {
       const currentZoomLevel = map.getZoom();
-      const goodZoom = 12;
+      const goodZoom = 13;
 
       map.panTo(myLatLng);
 
@@ -95,7 +95,7 @@ export default class MapCard extends Vue {
   border-radius: 25px;
   overflow: hidden;
   max-width: 95vw;
-
+  background: rgb(65, 65, 65);
   height: 100%;
 }
 </style>

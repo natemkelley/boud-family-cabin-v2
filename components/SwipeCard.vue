@@ -6,7 +6,7 @@
       :options="swiperOption"
       @slideChange="slideChange"
     >
-      <swiper-slide v-for="card in cardData" :key="card.id">
+      <swiper-slide class="test" v-for="card in cardData" :key="card.id">
         <component
           :is="createCameraCard(card)"
           :card="card"
@@ -29,10 +29,11 @@
 import { Vue, Component, Prop, Emit, Watch } from "vue-property-decorator";
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 import CameraCard from "@/components/CameraCard.vue";
-import "swiper/swiper-bundle.min.css";
 import { CardData } from "@/config/camera";
 import ImageModal from "@/components/imageModal.vue";
 import YouTubeCard from "@/components/SwiperYoutube.vue";
+
+import "swiper/swiper-bundle.min.css";
 
 @Component({
   components: {
@@ -112,12 +113,11 @@ export default class SwipeCard extends Vue {
 .swiper-slide {
   text-align: center;
   height: auto;
-
-  /* Center slide text vertically */
   display: flex;
   justify-content: center;
   align-items: center;
   width: 95%;
-  max-width: 85vw; //max-width:350px
+  max-width: 85vw;
+  flex-direction: column;
 }
 </style>

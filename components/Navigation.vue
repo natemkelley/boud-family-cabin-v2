@@ -50,14 +50,14 @@ export default class Navigation extends Vue {
       link: "/driving",
       secondaryLink: [],
     },
-    {
+    /* {
       icon: "ski",
       link: "/resorts",
       secondaryLink: [
         { icon: "solitude", link: "/resorts/solitude" },
         { icon: "brighton", link: "/resorts/brighton" },
       ],
-    },
+    },*/
   ];
 
   activeLinkColor(name: string) {

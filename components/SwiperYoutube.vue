@@ -1,8 +1,11 @@
 <template>
-  <div class="camera youtube-video" @click="cardClicked">
+  <div
+    class="camera-card youtube-video"
+    :class="{ 'enabled-events': enablePointerEvents }"
+  >
     <youtube
       class="youtube-video-video"
-      :video-id="src"
+      :video-id="card.src"
       ref="youtube"
       :fitParent="true"
       :resize="true"
@@ -30,6 +33,15 @@ export default class SwiperYoutube extends Vue {
 
   playing = false;
   videoReady = false;
+  enablePointerEvents = false;
+
+  get isShownCard() {
+    return this.cardBeingShown && this.cardBeingShown.id === this.card.id;
+  }
+
+  get player() {
+    return this.$refs.youtube.player;
+  }
 
   onPlaying() {
     this.playing = true;
@@ -43,16 +55,11 @@ export default class SwiperYoutube extends Vue {
     this.videoReady = true;
   }
 
-  get src() {
-    return this.card.src;
-  }
-
-  get isShownCard() {
-    return this.cardBeingShown && this.cardBeingShown.id === this.card.id;
-  }
-
-  get player() {
-    return this.$refs.youtube.player;
+  startEnablePointerEvents() {
+    setTimeout(() => {
+      this.enablePointerEvents = false;
+    }, 250);
+    this.enablePointerEvents = true;
   }
 
   async playVideo() {
@@ -64,12 +71,17 @@ export default class SwiperYoutube extends Vue {
   }
 
   cardClicked() {
-    this.playing ? this.pauseVideo() : this.playVideo();
+    //this.playing ? this.pauseVideo() : this.playVideo();
   }
 
   @Watch("isShownCard")
   onisShownCard() {
     this.isShownCard ? this.playVideo() : this.pauseVideo();
+  }
+
+  @Watch("playing")
+  onPlayingChange() {
+    this.startEnablePointerEvents();
   }
 }
 </script>
@@ -79,15 +91,18 @@ export default class SwiperYoutube extends Vue {
   border-radius: 25px;
   overflow: hidden;
   height: 100%;
+  width: 100%;
   background: rgb(65, 65, 65);
   display: flex;
   align-items: center;
   position: relative;
+
   iframe,
   object,
   embed {
     pointer-events: none;
     width: 100%;
+    height: 100%;
   }
 
   &-video {
@@ -98,5 +113,9 @@ export default class SwiperYoutube extends Vue {
     position: absolute;
     bottom: 0;
   }
+}
+
+.enabled-events {
+  pointer-events: all !important;
 }
 </style>
