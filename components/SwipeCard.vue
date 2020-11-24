@@ -32,7 +32,7 @@ import CameraCard from "@/components/CameraCard.vue";
 import "swiper/swiper-bundle.min.css";
 import { CardData } from "@/config/camera";
 import ImageModal from "@/components/imageModal.vue";
-import YouTubeCard from "@/components/Brighton/SwiperYoutube.vue";
+import YouTubeCard from "@/components/SwiperYoutube.vue";
 
 @Component({
   components: {

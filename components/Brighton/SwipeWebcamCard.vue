@@ -21,7 +21,7 @@
 import { Vue, Component, Prop, Emit, Watch } from "vue-property-decorator";
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 import "swiper/swiper-bundle.min.css";
-import SwiperYoutube from "@/components/Brighton/SwiperYoutube.vue";
+import SwiperYoutube from "@/components/SwiperYoutube.vue";
 import WebcamCard from "@/components/Solitude/WebcamCard.vue";
 
 @Component({ components: { Swiper, SwiperSlide, SwiperYoutube, WebcamCard } })
