@@ -28,7 +28,6 @@ export default class ResortPage extends Vue {
   async created() {
     this.solitudeApi = await getSolitudeInfo();
     this.solitudeApiWebcams = await getSolitudeWebcams();
-    console.log(this.solitudeApi);
   }
 }
 </script>

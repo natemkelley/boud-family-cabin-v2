@@ -13,10 +13,7 @@ export default class ResortPage extends Vue {
 
   test = "this the brighton page";
 
-  webcamCards = [
-    { src: "https://www.youtube.com/embed/YDyBL3bXOwA" },
-    { src: "https://www.youtube.com/embed/7-fShR1SuEU" },
-  ];
+  webcamCards = [{ src: "YDyBL3bXOwA" }, { src: "7-fShR1SuEU" }];
 }
 </script>
 

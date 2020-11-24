@@ -24,7 +24,7 @@ export default class CameraCard extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .camera {
   &-card {
     max-width: 50vh;
@@ -37,6 +37,7 @@ export default class CameraCard extends Vue {
     border-radius: 25px;
     overflow: hidden;
     transition: 0.15s all ease;
+    position: relative;
     //NEW
   }
   &-img {

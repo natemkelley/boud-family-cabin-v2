@@ -6,6 +6,7 @@ export interface CardData {
   lon: string | number;
   label: string;
   title: string;
+  isVideo?: boolean;
 }
 
 const cameraData = [
@@ -74,6 +75,24 @@ const cameraData = [
     lat: 40.599523,
     lon: -111.584219,
     title: "",
+  },
+  {
+    src: "YDyBL3bXOwA",
+    label: "Brighton Ski Lot 2",
+    timeRefreshed: "",
+    lat: 40.599523,
+    lon: -111.584219,
+    title: "",
+    isVideo: true,
+  },
+  {
+    src: "7-fShR1SuEU",
+    label: "Brighton Ski Lot 3",
+    timeRefreshed: "",
+    lat: 40.599523,
+    lon: -111.584219,
+    title: "",
+    isVideo: true,
   },
 ];
 

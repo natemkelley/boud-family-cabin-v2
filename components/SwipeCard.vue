@@ -7,13 +7,18 @@
       @slideChange="slideChange"
     >
       <swiper-slide v-for="card in cardData" :key="card.id">
-        <CameraCard :card="card" @cardClick="cardClicked" />
+        <component
+          :is="createCameraCard(card)"
+          :card="card"
+          :cardBeingShown="cardBeingShown"
+          @cardClick="cardClicked"
+        />
       </swiper-slide>
     </swiper>
     <transition name="page">
       <ImageModal
         v-if="showModal"
-        :card="activeCard"
+        :card="imageModalCard"
         @closeModal="toggleModal(false)"
       />
     </transition>
@@ -27,6 +32,7 @@ import CameraCard from "@/components/CameraCard.vue";
 import "swiper/swiper-bundle.min.css";
 import { CardData } from "@/config/camera";
 import ImageModal from "@/components/imageModal.vue";
+import YouTubeCard from "@/components/Brighton/SwiperYoutube.vue";
 
 @Component({
   components: {
@@ -34,14 +40,16 @@ import ImageModal from "@/components/imageModal.vue";
     SwiperSlide,
     CameraCard,
     ImageModal,
+    YouTubeCard,
   },
 })
 export default class SwipeCard extends Vue {
   @Prop() cardData: CardData[];
   @Prop() activeCamera: CardData;
 
-  activeCard: CardData | null = null;
+  imageModalCard: CardData | null = null;
   showModal = false;
+  cardBeingShown: CardData | null = null;
 
   swiperOption = {
     slidesPerView: "auto",
@@ -51,6 +59,13 @@ export default class SwipeCard extends Vue {
     autoHeight: false,
   };
 
+  createCameraCard(card: CardData) {
+    if (card.isVideo) {
+      return YouTubeCard;
+    }
+    return CameraCard;
+  }
+
   slideTo(number: number) {
     if (this.$refs.mySwiper) {
       const swiper = (this.$refs.mySwiper as any).$swiper;
@@ -59,7 +74,7 @@ export default class SwipeCard extends Vue {
   }
 
   cardClicked(cardData: CardData | null) {
-    this.activeCard = cardData;
+    this.imageModalCard = cardData;
     this.toggleModal(true);
   }
 
@@ -69,13 +84,14 @@ export default class SwipeCard extends Vue {
 
   mounted() {
     const startingIndex = 0;
-    this.activeCard = this.cardData[startingIndex];
+    this.imageModalCard = this.cardData[startingIndex];
     this.slideChange({ realIndex: startingIndex });
   }
 
   @Emit("slideChange")
   slideChange(data: any) {
     const { realIndex } = data;
+    this.cardBeingShown = this.cardData[realIndex];
     return this.cardData[realIndex];
   }
 

@@ -46,7 +46,7 @@ export default class CabinPage extends Vue {
     this.$fireAuth
       .signInWithPopup(provider)
       .then((result) => {
-        console.log(result.credential);
+        //console.log(result.credential);
       })
       .catch((error) => {});
   }
