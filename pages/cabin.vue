@@ -7,7 +7,14 @@
       </div>
       <div class="sign-in">
         <vs-button @click="signInWithGoogle" size="xl" gradient block>
-          <img src="assets/logos/google-white.png" /> SIGN WITH GOOGLE
+          <NateIcons
+            class="sign-in-logo"
+            icon="google"
+            :size="21"
+            :gradient="false"
+            color="white"
+          />
+          SIGN WITH GOOGLE
         </vs-button>
       </div>
     </div>
@@ -25,11 +32,12 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 import { namespace } from "vuex-class";
 import AddCardModal from "@/components/Cabin/AddCard.vue";
 import ViewCabinCards from "@/components/Cabin/ViewCabinCards.vue";
+import NateIcons from "@/components/NateIcons.vue";
 import { cabinCardsCollection, CabinCard } from "@/config/firebaseConfig";
 
 const auth = namespace("auth");
 
-@Component({ components: { AddCardModal, ViewCabinCards } })
+@Component({ components: { AddCardModal, ViewCabinCards, NateIcons } })
 export default class CabinPage extends Vue {
   @auth.State("user") user: any;
   @auth.Getter("isLoggedIn") isLoggedIn: boolean;
@@ -88,5 +96,8 @@ export default class CabinPage extends Vue {
   display: flex;
   justify-content: center;
   align-items: center;
+  &-logo {
+    margin-right: 10px;
+  }
 }
 </style>
