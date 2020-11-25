@@ -3,7 +3,7 @@
     <div v-if="!isLoggedIn && hasLoaded" class="card">
       <div class="header"><h2>ATTENTION</h2></div>
       <div class="text">
-        You must be logged in and approved to view this page.
+        You must be logged in and <strong>approved</strong> to view this page.
       </div>
       <div class="sign-in">
         <vs-button @click="signInWithGoogle" size="xl" gradient block>
@@ -96,6 +96,7 @@ export default class CabinPage extends Vue {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 15px;
   &-logo {
     margin-right: 10px;
   }
