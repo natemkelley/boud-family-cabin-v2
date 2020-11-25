@@ -14,6 +14,12 @@
       @ready="onReady"
     ></youtube>
     <div class="camera-label">
+      <NateIcons
+        class="camera-label-icon"
+        :icon="card.icon || 'solitude'"
+        :size="20"
+        color="black"
+      />
       {{ card.label }}
     </div>
   </div>

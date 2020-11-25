@@ -12,9 +12,11 @@
       </div>
     </div>
 
-    <ViewCabinCards v-if="hasLoaded" :cabinCards="cabinCards" />
+    <div v-else>
+      <ViewCabinCards :cabinCards="cabinCards" />
 
-    <AddCardModal v-if="hasLoaded" :active.sync="openModal" />
+      <AddCardModal :active.sync="openModal" />
+    </div>
   </div>
 </template>
 

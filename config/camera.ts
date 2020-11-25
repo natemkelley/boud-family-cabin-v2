@@ -104,7 +104,7 @@ const cameraData = [
     icon: "solitude",
   },
   {
-    label: "Brighton Parking Lot",
+    label: "Brighton - Parking Lot",
     src: "7-fShR1SuEU",
     timeRefreshed: "",
     lat: 40.599523,
