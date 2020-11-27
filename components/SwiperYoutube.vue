@@ -46,7 +46,7 @@ export default class SwiperYoutube extends Vue {
   }
 
   get player() {
-    return this.$refs.youtube.player;
+    return (this.$refs.youtube as any).player;
   }
 
   onPlaying() {

@@ -1,5 +1,5 @@
-require("dotenv").config({
-  path: ".env",
+require('dotenv').config({
+  path: '.env',
 });
 
 export default {
@@ -7,24 +7,24 @@ export default {
   ssr: false,
 
   // Target (https://go.nuxtjs.dev/config-target)
-  target: "static",
+  target: 'static',
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: "Boud Family Cabin",
+    title: 'Boud Family Cabin',
     meta: [
-      { charset: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { hid: "description", name: "description", content: "" },
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { hid: 'description', name: 'description', content: '' },
     ],
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
-    "~/assets/css/variables.css",
-    "vuesax/dist/vuesax.css",
-    "~/assets/css/transitions.css",
-    "~/assets/css/main.scss",
+    '~/assets/css/variables.css',
+    'vuesax/dist/vuesax.css',
+    '~/assets/css/transitions.css',
+    '~/assets/css/main.scss',
   ],
 
   env: {
@@ -32,17 +32,17 @@ export default {
   },
 
   loading: {
-    name: "folding-cube",
+    name: 'folding-cube',
     color: process.env.theme,
   },
 
   pageTransition: {
-    name: "slide-left",
-    mode: "out-in",
+    name: 'slide-left',
+    mode: 'out-in',
   },
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: ["@/plugins/vuesax", "@/plugins/googleMaps"],
+  plugins: ['@/plugins/vuesax', '@/plugins/googleMaps'],
 
   transpile: [/^vue2-google-maps($|\/)/],
 
@@ -53,10 +53,10 @@ export default {
   buildModules: [
     [
       // https://go.nuxtjs.dev/typescript
-      "@nuxt/typescript-build",
-      "@nuxtjs/dotenv",
+      '@nuxt/typescript-build',
+      '@nuxtjs/dotenv',
       {
-        filename: ".env",
+        filename: '.env',
       },
     ],
   ],
@@ -64,13 +64,13 @@ export default {
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     // https://go.nuxtjs.dev/axios
-    "@nuxtjs/axios",
+    '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
-    "@nuxtjs/pwa",
-    "@nuxtjs/svg",
-    "nuxt-svgicon",
+    '@nuxtjs/pwa',
+    '@nuxtjs/svg',
+    'nuxt-svgicon',
     [
-      "@nuxtjs/firebase",
+      '@nuxtjs/firebase',
       {
         config: {
           apiKey: process.env.apiKey,
@@ -85,9 +85,8 @@ export default {
         services: {
           auth: {
             initialize: {
-              onAuthStateChangedMutation: "auth/ON_AUTH_STATE_CHANGED_MUTATION",
-              onAuthStateChangedAction: "auth/onAuthStateChangedAction",
-              subscribeManually: false,
+              onAuthStateChangedMutation: 'auth/ON_AUTH_STATE_CHANGED_MUTATION',
+              onAuthStateChangedAction: 'auth/onAuthStateChangedAction',
             },
           },
           firestore: true,
@@ -108,19 +107,23 @@ export default {
 
   pwa: {
     meta: {
-      title: "Boud Cabin",
-      name: "Boud Family Cabin",
+      title: 'Boud Cabin',
+      name: 'Boud Family Cabin',
       mobileApp: true,
       theme_color: process.env.theme,
       mobileAppIOS: true,
       nativeUI: true,
     },
     manifest: {
-      name: "Boud Family Cabin",
-      short_name: "Boud Cabin",
-      description: "An application for the Boud Family Cabin",
+      name: 'Boud Family Cabin',
+      short_name: 'Boud Cabin',
+      description: 'An application for the Boud Family Cabin',
       background_color: process.env.theme,
-      lang: "en",
+      lang: 'en',
     },
+  },
+
+  router: {
+    middleware: 'router-auth',
   },
 };
