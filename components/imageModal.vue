@@ -41,6 +41,7 @@ export default class ImageModal extends Vue {
 
 <style lang="scss" scoped>
 .image-modal {
+  //TODO FOR DESKTOP
   position: fixed;
   top: 0;
   left: 0;

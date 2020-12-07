@@ -108,3 +108,4 @@ assets/.DS_Store
 *.cache
 assets/svg/.DS_Store
 *.cache
+*.cache
