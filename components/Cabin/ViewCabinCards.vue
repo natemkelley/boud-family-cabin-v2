@@ -49,10 +49,10 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, PropSync, Emit, Prop } from "vue-property-decorator";
-import { cabinCardsCollection, CabinCard } from "@/config/firebaseConfig";
-import CabinCardComponent from "@/components/Cabin/CabinCard.vue";
-import { FadeTransition, ZoomCenterTransition } from "vue2-transitions";
+import { Vue, Component, PropSync, Emit, Prop } from 'vue-property-decorator';
+import { cabinCardsCollection, CabinCard } from '@/config/firebaseConfig';
+import CabinCardComponent from '@/components/Cabin/CabinCard.vue';
+import { FadeTransition, ZoomCenterTransition } from 'vue2-transitions';
 
 @Component({
   components: {
@@ -66,7 +66,7 @@ export default class ViewCabinCards extends Vue {
   cardToDelete: CabinCard | null = null;
 
   alertCard = {
-    title: "No information added",
+    title: 'No information added',
     info: `Please use the "+" button below to add some information!`,
   };
 
@@ -79,8 +79,6 @@ export default class ViewCabinCards extends Vue {
   }
 
   deleteCard() {
-    console.log(this.cardToDelete);
-
     this.$fireStore
       .collection(cabinCardsCollection)
       .doc(this.cardToDelete?.uuid)

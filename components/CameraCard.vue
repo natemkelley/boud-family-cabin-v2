@@ -4,27 +4,22 @@
       <img :src="card.src" />
     </div>
     <div class="camera-label">
-      <NateIcons
-        class="camera-label-icon"
-        :icon="card.icon || 'solitude'"
-        :size="20"
-        color="black"
-      />
+      <NateIcons class="camera-label-icon" :icon="card.icon || 'solitude'" :size="20" color="black" />
       {{ card.label }}
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Emit } from "vue-property-decorator";
-import { CardData } from "~/config/camera";
-import NateIcons from "@/components/NateIcons.vue";
+import { Vue, Component, Prop, Emit } from 'vue-property-decorator';
+import { CardData } from '~/config/camera';
+import NateIcons from '@/components/NateIcons.vue';
 
 @Component({ components: { NateIcons } })
 export default class CameraCard extends Vue {
   @Prop() card: CardData;
 
-  @Emit("cardClick")
+  @Emit('cardClick')
   cardClick() {
     return this.card;
   }
@@ -34,7 +29,8 @@ export default class CameraCard extends Vue {
 <style lang="scss">
 .camera {
   &-card {
-    max-width: 50vh;
+    max-width: 90vw;
+    max-height: 45vh;
     width: 100%;
     height: 100%;
     display: flex;
@@ -46,7 +42,8 @@ export default class CameraCard extends Vue {
     transition: 0.15s all ease;
     position: relative;
     &:hover {
-      transform: scale(0.9);
+      transform: scale(0.95);
+      cursor: move;
     }
   }
   &-img {
@@ -71,17 +68,11 @@ export default class CameraCard extends Vue {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: linear-gradient(
-      rgba(255, 255, 255, 0.75),
-      rgb(255, 255, 255)
-    );
+    background-image: linear-gradient(rgba(255, 255, 255, 0.75), rgb(255, 255, 255));
     text-transform: uppercase;
     &-icon {
       margin-right: 7.5px;
     }
   }
-}
-
-.camera-card {
 }
 </style>

@@ -7,8 +7,8 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Emit } from "vue-property-decorator";
-import { CardData } from "~/config/camera";
+import { Vue, Component, Prop, Emit } from 'vue-property-decorator';
+import { CardData } from '~/config/camera';
 
 @Component({ components: {} })
 export default class ImageModal extends Vue {
@@ -21,8 +21,8 @@ export default class ImageModal extends Vue {
   created() {
     this.loading = this.$vs.loading({
       target: this.$refs.content,
-      color: "#fff",
-      background: "#000",
+      color: '#fff',
+      background: '#000',
       scale: 2,
     });
   }
@@ -32,7 +32,7 @@ export default class ImageModal extends Vue {
     this.loading.close();
   }
 
-  @Emit("closeModal")
+  @Emit('closeModal')
   closeModal() {
     return false;
   }
@@ -46,6 +46,7 @@ export default class ImageModal extends Vue {
   left: 0;
   height: 100vh;
   width: 100%;
+  max-width: 850px;
   background: rgba(32, 32, 32, 0.65) !important;
   backdrop-filter: blur(10px);
   z-index: 999;

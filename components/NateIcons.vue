@@ -1,26 +1,22 @@
 <template>
-  <span class="nate-icon" :style="computedStyle">
-    <svgicon
-      :name="icon"
-      :class="{ gradient: gradient }"
-      :color="color"
-    ></svgicon>
+  <span class="nate-icon" :style="computedStyle" :class="`icon-${icon}`">
+    <svgicon :name="icon" :class="{ gradient: gradient }" :color="color"></svgicon>
   </span>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from "vue-property-decorator";
+import { Vue, Component, Prop } from 'vue-property-decorator';
 
 @Component({ components: {} })
 export default class NateIcons extends Vue {
   @Prop() icon!: string;
   @Prop({ default: 40 }) size: number;
   @Prop({ default: true }) gradient: boolean;
-  @Prop({ default: "black" }) color: string;
+  @Prop({ default: 'black' }) color: string;
 
   get computedStyle() {
     return {
-      fontSize: this.size + "px",
+      fontSize: this.size + 'px',
     };
   }
 }

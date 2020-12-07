@@ -3,26 +3,14 @@
     <div class="navigation-container">
       <div class="navigation-secondary" :class="{ hide: !showSecondary }">
         <div class="navigation-interior">
-          <NuxtLink
-            v-for="secondary in secondaryLinks"
-            :key="secondary.icon"
-            :to="secondary.link"
-          >
-            <NateIcons
-              :icon="secondary.icon"
-              :color="activeSecondaryColor(secondary.link)"
-            />
+          <NuxtLink v-for="secondary in secondaryLinks" :key="secondary.icon" :to="secondary.link">
+            <NateIcons :icon="secondary.icon" :color="activeSecondaryColor(secondary.link)" />
           </NuxtLink>
         </div>
       </div>
       <div class="navigation-primary">
         <div class="navigation-interior">
-          <NuxtLink
-            v-for="nav in primaryNavigation"
-            :key="nav.icon"
-            :to="nav.link"
-            class="navigation-link"
-          >
+          <NuxtLink v-for="nav in primaryNavigation" :key="nav.icon" :to="nav.link" class="navigation-link">
             <NateIcons :icon="nav.icon" :color="activeLinkColor(nav.link)" />
           </NuxtLink>
         </div>
@@ -32,22 +20,27 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from "vue-property-decorator";
-import { getStyle, rbgToHex, vStyleToHex } from "@/helpers";
-import { isEmpty } from "lodash";
-import NateIcons from "@/components/NateIcons.vue";
+import { Vue, Component, Prop } from 'vue-property-decorator';
+import { getStyle, rbgToHex, vStyleToHex } from '@/helpers';
+import { isEmpty } from 'lodash';
+import NateIcons from '@/components/NateIcons.vue';
 
 @Component({ components: { NateIcons } })
 export default class Navigation extends Vue {
   primaryNavigation = [
     {
-      icon: "house",
-      link: "/cabin",
+      icon: 'bell',
+      link: '/info',
       secondaryLink: [],
     },
     {
-      icon: "car",
-      link: "/driving",
+      icon: 'car',
+      link: '/driving',
+      secondaryLink: [],
+    },
+    {
+      icon: 'house',
+      link: '/cabin',
       secondaryLink: [],
     },
     /* {
@@ -62,18 +55,16 @@ export default class Navigation extends Vue {
 
   activeLinkColor(name: string) {
     const isActive = this.activeLink?.link.includes(name);
-    return !isActive ? "black" : `${vStyleToHex("--vs-primary")}`;
+    return !isActive ? 'black' : `${vStyleToHex('--vs-primary')}`;
   }
 
   activeSecondaryColor(name: string) {
     const isActive = name.includes(this.$nuxt.$route.path);
-    return !isActive ? "black" : `${vStyleToHex("--vs-primary")}`;
+    return !isActive ? 'black' : `${vStyleToHex('--vs-primary')}`;
   }
 
   get activeLink() {
-    return this.primaryNavigation.find(
-      (nav) => nav.link === this.$nuxt.$route.matched[0].path
-    );
+    return this.primaryNavigation.find(nav => nav.link === this.$nuxt.$route.matched[0].path);
   }
 
   get secondaryLinks() {
