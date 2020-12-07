@@ -6,15 +6,17 @@
 # install dependencies
 $ npm install
 
-# serve with hot reload at localhost:3000
-$ npm run dev
+## SSL
 
-# build for production and launch server
-$ npm run build
-$ npm run start
+https://itnext.io/node-express-letsencrypt-generate-a-free-ssl-certificate-and-run-an-https-server-in-5-minutes-a730fbe528ca
 
-# generate static project
-$ npm run generate
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+certbot certonly --manual
+
+```
+
+```
+
+AUTO RENEW CERTBOT
+https://flaviocopes.com/express-letsencrypt-ssl/#generate-the-ssl-certificate-using-certbot

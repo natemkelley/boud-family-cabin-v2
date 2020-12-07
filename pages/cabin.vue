@@ -1,6 +1,7 @@
 <template>
   <div class="cabin">
     Cabin Page
+    {{ JSON.stringify(images) }}
   </div>
 </template>
 
@@ -15,6 +16,8 @@ export default class CabinPage extends Vue {
   async getImages() {
     const images = await getCabinImages();
     console.log(images);
+
+    this.images = images;
   }
 
   created() {
