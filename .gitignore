@@ -110,3 +110,7 @@ assets/svg/.DS_Store
 *.cache
 *.cache
 *.cache
+*.cache
+.firebase
+.firebase/
+.firebase/*

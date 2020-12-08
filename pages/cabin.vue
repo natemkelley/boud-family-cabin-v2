@@ -6,6 +6,7 @@
 
     <div v-for="(image, index) in images" :key="index" class="images">
       <img :src="datImages(image)" />
+      <div>{{ index }} {{ humanDate(image.creationTime, index) }}</div>
     </div>
   </div>
 </template>
@@ -13,7 +14,7 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
 import { getCabinImages } from '@/config/cabinCameraApi';
-
+import moment from 'moment';
 @Component({ components: {} })
 export default class CabinPage extends Vue {
   images = [];
@@ -22,6 +23,11 @@ export default class CabinPage extends Vue {
   datImages(imageObject: any) {
     const url = 'https://boudfamilycabin.duckdns.org';
     return url + imageObject.path;
+  }
+
+  humanDate(creationTime: string, index: number) {
+    const date = new Date(creationTime);
+    return moment(date).format('LLLL');
   }
 
   created() {
