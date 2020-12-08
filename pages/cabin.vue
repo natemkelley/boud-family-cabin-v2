@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
-import { getCabinImages } from '@/config/cabinCameraApi';
+import { apiURL, getCabinImages } from '@/config/cabinCameraApi';
 import moment from 'moment';
 @Component({ components: {} })
 export default class CabinPage extends Vue {
@@ -21,8 +21,7 @@ export default class CabinPage extends Vue {
   imageNum = 1;
 
   datImages(imageObject: any) {
-    const url = 'https://boudfamilycabin.duckdns.org';
-    return url + imageObject.path;
+    return apiURL + imageObject.path;
   }
 
   humanDate(creationTime: string, index: number) {

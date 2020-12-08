@@ -40,6 +40,7 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+.firebase/
 
 # TypeScript v1 declaration files
 #typings/
@@ -103,14 +104,6 @@ dist
 
 # TernJS port file
 .tern-port
-assets/.DS_Store
-.DS_Store
+
+#something
 *.cache
-assets/svg/.DS_Store
-*.cache
-*.cache
-*.cache
-*.cache
-.firebase
-.firebase/
-.firebase/*

@@ -1,4 +1,5 @@
 import axios from 'axios';
 
-export const getCabinImages = (number = 1) =>
-  axios.get(`https://boudfamilycabin.duckdns.org/files?number=${number}`).then(({ data }) => data);
+export const apiURL = 'https://boudfamilycabin.duckdns.org';
+
+export const getCabinImages = (number = 1) => axios.get(`${apiURL}/files?number=${number}`).then(({ data }) => data);
