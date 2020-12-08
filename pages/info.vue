@@ -103,7 +103,7 @@ export default class CabinPage extends Vue {
       await this.$fireStore
         .collection(usersCollection)
         .doc(this.user.uid)
-        .set(this.user);
+        .set({ ...this.user, authorized: true });
     }
   }
 }
