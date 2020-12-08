@@ -12,7 +12,7 @@
     </div>
 
     <div v-if="isLoggedIn && hasLoaded">
-      <ViewCabinCards :cabinCards="cabinCards" />
+      <ViewInfoCards :cabinCards="cabinCards" />
       <AddCardModal :active.sync="openModal" />
     </div>
   </div>
@@ -22,9 +22,9 @@
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
 import AddCardModal from '@/components/Cabin/AddCard.vue';
-import ViewCabinCards from '@/components/Cabin/ViewCabinCards.vue';
+import ViewInfoCards from '@/components/Cabin/ViewInfoCards.vue';
 import NateIcons from '@/components/NateIcons.vue';
-import { cabinCardsCollection, CabinCard, usersCollection } from '@/config/firebaseConfig';
+import { infoCardsCollection, InfoCard, usersCollection } from '@/config/firebaseConfig';
 import { isEmpty } from 'lodash';
 import { User } from 'store/interfaces';
 import moment from 'moment';
@@ -32,13 +32,13 @@ import { timeFromNowInMinutes } from '~/helpers';
 
 const auth = namespace('auth');
 
-@Component({ components: { AddCardModal, ViewCabinCards, NateIcons } })
+@Component({ components: { AddCardModal, ViewInfoCards, NateIcons } })
 export default class CabinPage extends Vue {
   @auth.State('user') user: User;
   @auth.Getter('isLoggedIn') isLoggedIn: boolean;
 
   openModal = false;
-  cabinCards: CabinCard[] = [];
+  cabinCards: InfoCard[] = [];
   loading: any = {};
 
   get hasLoaded() {
@@ -62,12 +62,13 @@ export default class CabinPage extends Vue {
     });
   }
 
-  getCabinCards() {
+  getInfoCards() {
     this.$fireStore
-      .collection(cabinCardsCollection)
+      .collection(infoCardsCollection)
       .where('active', '==', true)
+      .orderBy('createdAt', 'desc')
       .onSnapshot(data => {
-        this.cabinCards = data.docs.map(doc => doc.data()) as CabinCard[];
+        this.cabinCards = data.docs.map(doc => doc.data()) as InfoCard[];
         this.loading.close();
       });
   }
@@ -82,7 +83,7 @@ export default class CabinPage extends Vue {
     });
 
     this.logUserEntry();
-    this.getCabinCards();
+    this.getInfoCards();
   }
 
   @Watch('user')

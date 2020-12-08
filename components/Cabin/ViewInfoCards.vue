@@ -1,21 +1,16 @@
 <template>
   <div>
     <ZoomCenterTransition group :duration="750" :delay="150">
-      <CabinCard
-        v-for="card in cabinCards"
-        :key="card.uuid"
-        :card="card"
-        @deleteClicked="toggleCardToDelete"
-      ></CabinCard>
+      <InfoCard v-for="card in cabinCards" :key="card.uuid" :card="card" @deleteClicked="toggleCardToDelete"></InfoCard>
 
-      <CabinCard
+      <InfoCard
         v-if="!cabinCards.length"
         key="alert"
-        :danger="true"
+        color="danger"
         :card="alertCard"
         :canShowDelet="false"
         @deleteClicked="toggleCardToDelete"
-      ></CabinCard>
+      ></InfoCard>
     </ZoomCenterTransition>
 
     <div ref="loading" class="loading-box"></div>
@@ -50,20 +45,21 @@
 
 <script lang="ts">
 import { Vue, Component, PropSync, Emit, Prop } from 'vue-property-decorator';
-import { cabinCardsCollection, CabinCard } from '@/config/firebaseConfig';
-import CabinCardComponent from '@/components/Cabin/CabinCard.vue';
+import { infoCardsCollection, InfoCard } from '@/config/firebaseConfig';
+import InfoCardComponent from '@/components/Cabin/InfoCard.vue';
 import { FadeTransition, ZoomCenterTransition } from 'vue2-transitions';
+import { firebaseTimestampToDate } from '@/config/firebaseConfig';
 
 @Component({
   components: {
-    CabinCardComponent,
+    InfoCardComponent,
     ZoomCenterTransition,
   },
 })
-export default class ViewCabinCards extends Vue {
-  @Prop() cabinCards: CabinCard[];
+export default class ViewInfoCards extends Vue {
+  @Prop() cabinCards: InfoCard[];
 
-  cardToDelete: CabinCard | null = null;
+  cardToDelete: InfoCard | null = null;
 
   alertCard = {
     title: 'No information added',
@@ -74,13 +70,13 @@ export default class ViewCabinCards extends Vue {
     return Boolean(this.cardToDelete);
   }
 
-  toggleCardToDelete(card: CabinCard) {
+  toggleCardToDelete(card: InfoCard) {
     this.cardToDelete = card;
   }
 
   deleteCard() {
     this.$fireStore
-      .collection(cabinCardsCollection)
+      .collection(infoCardsCollection)
       .doc(this.cardToDelete?.uuid)
       .update({ active: false });
 

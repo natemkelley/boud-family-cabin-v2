@@ -1,9 +1,14 @@
-export const cabinCardsCollection = 'cabin-cards';
+export const infoCardsCollection = 'info-cards';
 export const usersCollection = 'users';
-export interface CabinCard {
+export interface InfoCard {
   title: string;
   info: string;
-  createdAt: Date;
+  createdAt: Date | FirebaseFirestore.Timestamp;
   active: boolean;
   uuid: string;
+  color: string;
 }
+
+export const firebaseTimestampToDate = (date: FirebaseFirestore.Timestamp) => {
+  return date.toDate();
+};

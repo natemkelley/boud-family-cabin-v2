@@ -13,10 +13,7 @@
         </vs-input>
 
         <div class="text-area">
-          <div
-            class="vs-input-parent vs-input-parent--state-null vs-component--primary"
-            placeholder="Info"
-          >
+          <div class="vs-input-parent vs-input-parent--state-null vs-component--primary" placeholder="Info">
             <div class="vs-input-content">
               <textarea
                 class="vs-input vs-input--has-icon"
@@ -39,17 +36,21 @@
             </div>
           </div>
         </div>
+
+        <div class="colors">
+          <div v-for="color in coloredBoxes" :key="color" @click="colorChange(color)">
+            <vs-button class="color-btn" :active="isChosenColor(color)" :color="color" gradient>
+              <div v-if="isChosenColor(color)">
+                <NateIcons icon="check" color="white" :gradient="true" :size="18" />
+              </div>
+            </vs-button>
+          </div>
+        </div>
       </div>
 
       <template #footer>
         <div class="footer-dialog">
-          <vs-button
-            size="xl"
-            block
-            @click="addCard"
-            :loading="savingCard"
-            gradient
-          >
+          <vs-button size="xl" block @click="addCard" :loading="savingCard" gradient>
             Add Card
           </vs-button>
         </div>
@@ -74,34 +75,37 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, PropSync, Emit } from "vue-property-decorator";
-import NateIcons from "@/components/NateIcons.vue";
-import { CabinCard, cabinCardsCollection } from "@/config/firebaseConfig";
-import { v4 as uuidv4 } from "uuid";
+import { Vue, Component, PropSync, Emit } from 'vue-property-decorator';
+import NateIcons from '@/components/NateIcons.vue';
+import { InfoCard, infoCardsCollection } from '@/config/firebaseConfig';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({ components: { NateIcons } })
 export default class AddCard extends Vue {
-  @PropSync("active", { type: Boolean }) activeSync!: boolean;
+  @PropSync('active', { type: Boolean }) activeSync!: boolean;
 
-  header = "";
-  textarea = "";
+  header = '';
+  textarea = '';
   savingCard = false;
+  coloredBoxes = ['primary', 'success', 'danger', 'warn', 'dark'];
+  chosenColor = this.coloredBoxes[0];
 
   async addCard() {
     this.savingCard = true;
 
     const uuid = uuidv4();
 
-    const cardData: CabinCard = {
+    const cardData: InfoCard = {
       title: this.header,
       info: this.textarea,
       createdAt: new Date(),
       active: true,
       uuid,
+      color: this.chosenColor,
     };
 
     await this.$fireStore
-      .collection(cabinCardsCollection)
+      .collection(infoCardsCollection)
       .doc(uuid)
       .set(cardData);
 
@@ -109,6 +113,14 @@ export default class AddCard extends Vue {
       this.activeSync = false;
       this.savingCard = false;
     }, 100);
+  }
+
+  colorChange(color: string) {
+    this.chosenColor = color;
+  }
+
+  isChosenColor(color: string) {
+    return color === this.chosenColor;
   }
 }
 </script>
@@ -126,7 +138,7 @@ export default class AddCard extends Vue {
     input,
     textarea {
       width: 100%;
-      font-family: "Poppins";
+      font-family: 'Poppins';
     }
   }
   img,
@@ -140,14 +152,24 @@ export default class AddCard extends Vue {
   bottom: 85px;
   right: 21px;
   padding: 10px 10px;
-  opacity: 0.9;
+  opacity: 0.875;
   transition: 250ms all;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.466);
   img,
   svg {
     margin: 0 !important;
   }
   &:hover {
     transform: scale(0.85);
+  }
+}
+
+.colors {
+  display: flex;
+  justify-content: space-around;
+  .color-btn {
+    height: 46px;
+    width: 46px;
   }
 }
 </style>

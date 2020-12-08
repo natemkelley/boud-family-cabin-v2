@@ -87,6 +87,7 @@ $box-shadow: 0px -1px 5px #0000001f;
   bottom: 0;
   width: 100%;
   color: black;
+  z-index: 500;
 
   &-container {
     position: relative;
