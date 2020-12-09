@@ -2,14 +2,15 @@
   <div class="cabin-card" @click.prevent.stop="cardClickToggle">
     <vs-alert gradient shadow :color="cardColor">
       <template #title>
-        <div>
+        <div v-if="card.title">
           {{ card.title }}
           <div class="date" v-if="card.createdAt">
             {{ formattedDate(card.createdAt) }}
           </div>
         </div>
       </template>
-      <div class="textarea">{{ card.info }}</div>
+      <div v-if="card.info" class="textarea">{{ card.info }}</div>
+      <slot />
     </vs-alert>
 
     <transition name="bounce">
@@ -36,9 +37,14 @@ import moment from 'moment';
 
 @Component({ components: {} })
 export default class ViewInfoCards extends Vue {
-  @Prop() card: InfoCard;
+  @Prop({
+    default: () => {
+      return {};
+    },
+  })
+  card: InfoCard;
   @Prop({ default: true }) canShowDelete: boolean;
-  @Prop() color: string;
+  @Prop({ default: () => 'primary' }) color: string;
 
   cardClicked = false;
   active = true;

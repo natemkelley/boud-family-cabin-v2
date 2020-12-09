@@ -1,6 +1,6 @@
 <template>
   <div class="cabin">
-    <div v-if="!isLoggedIn && hasLoaded" class="card">
+    <InfoCard v-if="!isLoggedIn && hasLoaded" color="dark" :canShowDelete="false">
       <div class="header"><h2>ATTENTION</h2></div>
       <div class="text">You must be logged in and <strong>approved</strong> to view this page.</div>
       <div class="sign-in">
@@ -9,12 +9,13 @@
           SIGN WITH GOOGLE
         </vs-button>
       </div>
-    </div>
+    </InfoCard>
 
-    <div v-if="isLoggedIn && hasLoaded">
-      <ViewInfoCards :cabinCards="cabinCards" />
-      <AddCardModal :active.sync="openModal" />
-    </div>
+    <InfoCard v-if="cannotViewCards" color="danger" :card="notAuthorizedCard"></InfoCard>
+
+    <ViewInfoCards v-if="canViewCards" :cabinCards="cabinCards" />
+
+    <AddCardModal v-if="isAuthorized" :active.sync="openModal" />
   </div>
 </template>
 
@@ -24,6 +25,7 @@ import { namespace } from 'vuex-class';
 import AddCardModal from '@/components/Cabin/AddCard.vue';
 import ViewInfoCards from '@/components/Cabin/ViewInfoCards.vue';
 import NateIcons from '@/components/NateIcons.vue';
+import InfoCardComponent from '@/components/Cabin/InfoCard.vue';
 import { infoCardsCollection, InfoCard, usersCollection } from '@/config/firebaseConfig';
 import { isEmpty } from 'lodash';
 import { User } from 'store/interfaces';
@@ -32,17 +34,32 @@ import { timeFromNowInMinutes } from '~/helpers';
 
 const auth = namespace('auth');
 
-@Component({ components: { AddCardModal, ViewInfoCards, NateIcons } })
+@Component({ components: { AddCardModal, ViewInfoCards, NateIcons, InfoCardComponent } })
 export default class CabinPage extends Vue {
   @auth.State('user') user: User;
   @auth.Getter('isLoggedIn') isLoggedIn: boolean;
+  @auth.Getter('isAuthorized') isAuthorized: boolean;
+  @auth.Getter('isAdmin') isAdmin: boolean;
 
   openModal = false;
   cabinCards: InfoCard[] = [];
   loading: any = {};
 
+  notAuthorizedCard = {
+    title: 'Authorization Error',
+    info: `You are not authorized to view this page.`,
+  };
+
   get hasLoaded() {
     return !this.loading.isVisible;
+  }
+
+  get canViewCards() {
+    return this.isLoggedIn && this.isAuthorized && this.hasLoaded;
+  }
+
+  get cannotViewCards() {
+    return this.isLoggedIn && !this.isAuthorized && this.hasLoaded;
   }
 
   signInWithGoogle() {
@@ -62,18 +79,11 @@ export default class CabinPage extends Vue {
     });
   }
 
-  getInfoCards() {
-    this.$fireStore
-      .collection(infoCardsCollection)
-      .where('active', '==', true)
-      .orderBy('createdAt', 'desc')
-      .onSnapshot(data => {
-        this.cabinCards = data.docs.map(doc => doc.data()) as InfoCard[];
-        this.loading.close();
-      });
+  closeLoader() {
+    this.loading.close();
   }
 
-  async beforeMount() {
+  getInfoCards() {
     this.loading = this.$vs.loading({
       target: this.$refs.loading,
       scale: '1.5',
@@ -82,12 +92,22 @@ export default class CabinPage extends Vue {
       color: '#fff',
     });
 
-    this.logUserEntry();
+    this.$fireStore
+      .collection(infoCardsCollection)
+      .where('active', '==', true)
+      .orderBy('createdAt', 'desc')
+      .onSnapshot(data => {
+        this.cabinCards = data.docs.map(doc => doc.data()) as InfoCard[];
+        this.closeLoader();
+      });
+  }
+
+  beforeMount() {
     this.getInfoCards();
   }
 
   @Watch('user')
-  async logUserEntry() {
+  logUserEntry() {
     if (!isEmpty(this.user)) {
       const showNotification = timeFromNowInMinutes(this.user.lastSeen as Date) >= 5;
 
@@ -99,11 +119,6 @@ export default class CabinPage extends Vue {
           text: `You are currently logged in as "${this.user.displayName}"`,
         });
       }
-
-      await this.$fireStore
-        .collection(usersCollection)
-        .doc(this.user.uid)
-        .set({ ...this.user, authorized: true });
     }
   }
 }
