@@ -3,10 +3,10 @@ import { User } from './interfaces';
 import firebase from 'firebase';
 import { usersCollection } from '~/config';
 
-export const state = {
+export const state = () => ({
   user: {},
   userLoaded: false,
-};
+});
 
 export const getters = {
   isLoggedIn: (state: any) => {
