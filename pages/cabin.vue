@@ -2,11 +2,9 @@
   <div class="cabin">
     Cabin Page
 
-    <input type="number" v-model="imageNum" />
-
-    <div v-for="(image, index) in images" :key="index" class="images">
-      <img :src="datImages(image)" />
-      <div>{{ index }} {{ humanDate(image.creationTime, index) }}</div>
+    <vs-input class="input" type="number" v-model="imageNum" label="Number of Images" />
+    <div class="cabin-card-container">
+      <CabinCard v-for="card in images" :key="card.path" :card="card" @imageRefresh="imageRefresh"> </CabinCard>
     </div>
   </div>
 </template>
@@ -14,19 +12,15 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
 import { apiURL, getCabinImages } from '@/config/cabinCameraApi';
-import moment from 'moment';
-@Component({ components: {} })
+import CabinCard from '@/components/Cabin/CabinCard.vue';
+
+@Component({ components: { CabinCard } })
 export default class CabinPage extends Vue {
   images = [];
   imageNum = 1;
 
-  datImages(imageObject: any) {
-    return apiURL + imageObject.path;
-  }
-
-  humanDate(creationTime: string, index: number) {
-    const date = new Date(creationTime);
-    return moment(date).format('LLLL');
+  async imageRefresh(card: any) {
+    console.log(card);
   }
 
   created() {
@@ -35,24 +29,31 @@ export default class CabinPage extends Vue {
 
   @Watch('imageNum')
   async getImages() {
-    const images = await getCabinImages(this.imageNum);
-    this.images = images[0].images;
+    const cameras = await getCabinImages(this.imageNum);
+
+    this.images = cameras.reduce((accumulator: any, camera: any) => {
+      return [...accumulator, ...camera.images];
+    }, []);
+
     console.log(this.images);
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.cabin-card-container {
+  width: 100%;
+}
+
 .cabin {
-  margin-bottom: 150px;
+  margin-bottom: 70px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  .images {
-    max-width: 70vw;
-    img {
-      width: 100%;
-    }
+
+  .input {
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 }
 </style>

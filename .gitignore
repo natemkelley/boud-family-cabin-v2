@@ -110,3 +110,4 @@ dist
 #something
 *.cache
 *.cache
+static/sw.js

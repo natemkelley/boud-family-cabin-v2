@@ -34,7 +34,7 @@ import { Vue, Component, PropSync, Emit, Prop } from 'vue-property-decorator';
 import { firebaseTimestampToDate, InfoCard } from '@/config/firebaseConfig';
 import moment from 'moment';
 
-@Component({})
+@Component({ components: {} })
 export default class ViewInfoCards extends Vue {
   @Prop() card: InfoCard;
   @Prop({ default: true }) canShowDelete: boolean;
