@@ -151,6 +151,8 @@ export default class CabinPage extends Vue {
   justify-content: center;
   align-items: center;
   margin-top: 15px;
+  margin-left: -10px;
+  margin-right: -10px;
   &-logo {
     margin-right: 10px;
   }

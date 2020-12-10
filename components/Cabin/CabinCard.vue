@@ -60,7 +60,7 @@ export default class CabinCard extends Vue {
   }
 
   mounted() {
-    this.onLoading();
+    this.onLoading('loading image');
   }
 
   humanDate(creationTime: string, index: number) {}
@@ -91,7 +91,7 @@ export default class CabinCard extends Vue {
   cursor: pointer;
   position: relative;
   min-height: 180px;
-  min-width: 360px;
+  min-width: 100%;
   max-width: 480px;
   .cabin-image {
     position: relative;
