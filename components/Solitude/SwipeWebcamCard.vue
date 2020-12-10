@@ -9,11 +9,11 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Emit, Watch } from "vue-property-decorator";
-import { Swiper, SwiperSlide } from "vue-awesome-swiper";
-import "swiper/swiper-bundle.min.css";
-import WebcamCard from "@/components/Solitude/WebcamCard.vue";
-import moment from "moment";
+import { Vue, Component, Prop, Emit, Watch } from 'vue-property-decorator';
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
+import 'swiper/swiper-bundle.min.css';
+import WebcamCard from '@/components/Solitude/WebcamCard.vue';
+import moment from 'moment';
 
 @Component({ components: { Swiper, SwiperSlide, WebcamCard } })
 export default class SwipeWebcamCard extends Vue {
@@ -24,7 +24,7 @@ export default class SwipeWebcamCard extends Vue {
   }
 
   swiperOption = {
-    slidesPerView: "auto",
+    slidesPerView: 'auto',
     spaceBetween: 15,
     centeredSlides: true,
     loop: false,
@@ -32,7 +32,7 @@ export default class SwipeWebcamCard extends Vue {
   };
 
   lastUpdated(webcam: any) {
-    return `Updated at ${moment(webcam.LastUpdate).format("LT")}`;
+    return `Updated at ${moment(webcam.LastUpdate).format('LT')}`;
   }
 }
 </script>
@@ -50,6 +50,6 @@ export default class SwipeWebcamCard extends Vue {
   justify-content: center;
   align-items: center;
   width: 95%;
-  max-width: 85vw;
+  max-width: 85%;
 }
 </style>

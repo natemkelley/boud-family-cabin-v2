@@ -1,19 +1,23 @@
 <template>
-  <div class="cabin">
-    <InfoCard v-if="!isLoggedIn && hasLoaded" color="dark" :canShowDelete="false">
-      <div class="header"><h2>ATTENTION</h2></div>
-      <div class="text">You must be logged in and <strong>approved</strong> to view this page.</div>
-      <div class="sign-in">
-        <vs-button @click="signInWithGoogle" size="xl" gradient block>
-          <NateIcons class="sign-in-logo" icon="google" :size="21" :gradient="false" color="white" />
-          SIGN WITH GOOGLE
-        </vs-button>
-      </div>
-    </InfoCard>
+  <div class="info">
+    <vs-row justify="center">
+      <InfoCard v-if="!isLoggedIn && hasLoaded" color="dark" :canShowDelete="false">
+        <div class="header"><h2>ATTENTION</h2></div>
+        <div class="text">You must be logged in and <strong>approved</strong> to view this page.</div>
+        <div class="sign-in">
+          <vs-button @click="signInWithGoogle" size="xl" gradient block>
+            <NateIcons class="sign-in-logo" icon="google" :size="21" :gradient="false" color="white" />
+            SIGN WITH GOOGLE
+          </vs-button>
+        </div>
+      </InfoCard>
 
-    <InfoCard v-if="cannotViewCards" color="danger" :card="notAuthorizedCard"></InfoCard>
+      <InfoCard v-if="cannotViewCards" color="danger" :card="notAuthorizedCard"></InfoCard>
 
-    <ViewInfoCards v-if="canViewCards" :cabinCards="cabinCards" />
+      <InfoCard v-if="showNoInfoCard" color="danger" :card="alertCard" :canShowDelet="false"></InfoCard>
+
+      <ViewInfoCards v-if="canViewCards" :cards="infoCards" />
+    </vs-row>
 
     <AddCardModal v-if="isAuthorized" :active.sync="openModal" />
   </div>
@@ -22,10 +26,10 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
-import AddCardModal from '@/components/Cabin/AddCard.vue';
-import ViewInfoCards from '@/components/Cabin/ViewInfoCards.vue';
+import AddCardModal from '@/components/Info/AddCard.vue';
+import ViewInfoCards from '@/components/Info/ViewInfoCards.vue';
 import NateIcons from '@/components/NateIcons.vue';
-import InfoCardComponent from '@/components/Cabin/InfoCard.vue';
+import InfoCardComponent from '@/components/Info/InfoCard.vue';
 import { infoCardsCollection, InfoCard, usersCollection } from '@/config/firebaseConfig';
 import { isEmpty } from 'lodash';
 import { User } from 'store/interfaces';
@@ -42,12 +46,17 @@ export default class CabinPage extends Vue {
   @auth.Getter('isAdmin') isAdmin: boolean;
 
   openModal = false;
-  cabinCards: InfoCard[] = [];
+  calledGetCards = false;
+  infoCards: InfoCard[] = [];
   loading: any = {};
 
   notAuthorizedCard = {
     title: 'Authorization Error',
     info: `You are not authorized to view this page.`,
+  };
+  alertCard = {
+    title: 'No information added',
+    info: `Please use the "+" button below to add some information!`,
   };
 
   get hasLoaded() {
@@ -60,6 +69,10 @@ export default class CabinPage extends Vue {
 
   get cannotViewCards() {
     return this.isLoggedIn && !this.isAuthorized && this.hasLoaded;
+  }
+
+  get showNoInfoCard() {
+    return this.hasLoaded && this.isAuthorized && !this.infoCards.length;
   }
 
   signInWithGoogle() {
@@ -84,6 +97,8 @@ export default class CabinPage extends Vue {
   }
 
   getInfoCards() {
+    this.calledGetCards = true;
+
     this.loading = this.$vs.loading({
       target: this.$refs.loading,
       scale: '1.5',
@@ -97,13 +112,13 @@ export default class CabinPage extends Vue {
       .where('active', '==', true)
       .orderBy('createdAt', 'desc')
       .onSnapshot(data => {
-        this.cabinCards = data.docs.map(doc => doc.data()) as InfoCard[];
+        this.infoCards = data.docs.map(doc => doc.data()) as InfoCard[];
         this.closeLoader();
       });
   }
 
   beforeMount() {
-    this.getInfoCards();
+    if (this.isLoggedIn) this.getInfoCards();
   }
 
   @Watch('user')
@@ -119,13 +134,15 @@ export default class CabinPage extends Vue {
           text: `You are currently logged in as "${this.user.displayName}"`,
         });
       }
+
+      !this.calledGetCards && this.getInfoCards();
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-.cabin {
+.info {
   min-height: 85vh;
 }
 

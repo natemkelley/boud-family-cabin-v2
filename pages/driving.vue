@@ -2,6 +2,7 @@
   <div class="swiper-ind">
     <SwiperCard
       class="initial-card"
+      :class="{ 'small-screen': !isLargeScreen }"
       @slideChange="slideChange"
       :cardData="cameraData"
       :activeCamera="activeCamera"
@@ -18,15 +19,19 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from "vue-property-decorator";
-import SwiperCard from "@/components/SwipeCard.vue";
-import MapCard from "@/components/MapCard.vue";
-import { CardData, getCameraData } from "@/config/camera.ts";
+import { Vue, Component, Prop } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
+import SwiperCard from '@/components/SwipeCard.vue';
+import MapCard from '@/components/MapCard.vue';
+import { CardData, getCameraData } from '@/config/camera.ts';
+
+const size = namespace('size');
 
 @Component({ components: { SwiperCard, MapCard } })
 export default class DrivingPage extends Vue {
   cameraData = getCameraData();
   activeCamera: CardData | null = null;
+  @size.Getter('isLargeScreen') isLargeScreen: boolean;
 
   created() {
     this.activeCamera = this.cameraData[0];
@@ -44,12 +49,13 @@ export default class DrivingPage extends Vue {
 
 <style lang="scss" scoped>
 .swiper-ind {
-  margin-left: -24px;
-  margin-right: -24px;
-
   display: flex;
   flex-flow: column;
   height: calc(100vh - 63px);
+  .small-screen {
+    margin-left: -24px;
+    margin-right: -24px;
+  }
 }
 
 .initial-card {

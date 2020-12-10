@@ -47,12 +47,8 @@ export const actions = {
 
     ctx.commit('SET_USER', userInfo);
 
-    await db
-      .collection(usersCollection)
-      .doc(uid)
-      .set(userInfo)
-      .then(data => {
-        ctx.commit('SET_USER_LOADED', true);
-      });
+    userRef.update({ lastSeen }).then(() => {
+      ctx.commit('SET_USER_LOADED', true);
+    });
   },
 };

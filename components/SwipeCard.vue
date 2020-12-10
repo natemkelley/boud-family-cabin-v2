@@ -1,11 +1,6 @@
 <template>
   <div>
-    <swiper
-      ref="mySwiper"
-      class="swiper"
-      :options="swiperOption"
-      @slideChange="slideChange"
-    >
+    <swiper ref="mySwiper" class="swiper" :options="swiperOption" @slideChange="slideChange">
       <swiper-slide class="test" v-for="card in cardData" :key="card.id">
         <component
           :is="createCameraCard(card)"
@@ -16,24 +11,23 @@
       </swiper-slide>
     </swiper>
     <transition name="page">
-      <ImageModal
-        v-if="showModal"
-        :card="imageModalCard"
-        @closeModal="toggleModal(false)"
-      />
+      <ImageModal v-if="showModal" :card="imageModalCard" @closeModal="toggleModal(false)" />
     </transition>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Emit, Watch } from "vue-property-decorator";
-import { Swiper, SwiperSlide } from "vue-awesome-swiper";
-import CameraCard from "@/components/CameraCard.vue";
-import { CardData } from "@/config/camera";
-import ImageModal from "@/components/imageModal.vue";
-import YouTubeCard from "@/components/SwiperYoutube.vue";
+import { Vue, Component, Prop, Emit, Watch } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
+import CameraCard from '@/components/CameraCard.vue';
+import { CardData } from '@/config/camera';
+import ImageModal from '@/components/imageModal.vue';
+import YouTubeCard from '@/components/SwiperYoutube.vue';
 
-import "swiper/swiper-bundle.min.css";
+import 'swiper/swiper-bundle.min.css';
+
+const size = namespace('size');
 
 @Component({
   components: {
@@ -47,18 +41,21 @@ import "swiper/swiper-bundle.min.css";
 export default class SwipeCard extends Vue {
   @Prop() cardData: CardData[];
   @Prop() activeCamera: CardData;
+  @size.Getter('isLargeScreen') isLargeScreen: boolean;
 
   imageModalCard: CardData | null = null;
   showModal = false;
   cardBeingShown: CardData | null = null;
 
-  swiperOption = {
-    slidesPerView: "auto",
-    spaceBetween: 15,
-    centeredSlides: true,
-    loop: false,
-    autoHeight: false,
-  };
+  get swiperOption() {
+    return {
+      slidesPerView: this.isLargeScreen ? 3 : 'auto',
+      spaceBetween: 15,
+      centeredSlides: !this.isLargeScreen,
+      loop: false,
+      autoHeight: false,
+    };
+  }
 
   createCameraCard(card: CardData) {
     if (card.isVideo) {
@@ -89,14 +86,14 @@ export default class SwipeCard extends Vue {
     this.slideChange({ realIndex: startingIndex });
   }
 
-  @Emit("slideChange")
+  @Emit('slideChange')
   slideChange(data: any) {
     const { realIndex } = data;
     this.cardBeingShown = this.cardData[realIndex];
     return this.cardData[realIndex];
   }
 
-  @Watch("activeCamera")
+  @Watch('activeCamera')
   activeCameraChange() {
     const cardIndex = this.activeCamera.id;
     this.slideTo(cardIndex - 1);
@@ -117,7 +114,7 @@ export default class SwipeCard extends Vue {
   justify-content: center;
   align-items: center;
   width: 95%;
-  max-width: 85vw;
+  max-width: 85%;
   flex-direction: column;
 }
 </style>

@@ -2,9 +2,20 @@
   <div class="cabin">
     Cabin Page
 
-    <vs-input class="input" type="number" v-model="imageNum" label="Number of Images" />
+    <div class="settings">
+      <vs-input class="input" type="number" v-model="imageNum" label="Number of Images" />
+      <vs-switch v-model="showSettings">meta</vs-switch>
+    </div>
+
     <div class="cabin-card-container">
-      <CabinCard v-for="card in images" :key="card.path" :card="card" @imageRefresh="imageRefresh"> </CabinCard>
+      <CabinCard
+        v-for="card in images"
+        :key="card.path"
+        :card="card"
+        :showSettings="showSettings"
+        @imageRefresh="imageRefresh"
+      >
+      </CabinCard>
     </div>
   </div>
 </template>
@@ -18,6 +29,7 @@ import CabinCard from '@/components/Cabin/CabinCard.vue';
 export default class CabinPage extends Vue {
   images = [];
   imageNum = 1;
+  showSettings = false;
 
   async imageRefresh(card: any) {
     console.log(card);
@@ -43,6 +55,9 @@ export default class CabinPage extends Vue {
 <style lang="scss" scoped>
 .cabin-card-container {
   width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .cabin {
@@ -55,5 +70,12 @@ export default class CabinPage extends Vue {
     margin-top: 20px;
     margin-bottom: 20px;
   }
+}
+
+.settings {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 </style>

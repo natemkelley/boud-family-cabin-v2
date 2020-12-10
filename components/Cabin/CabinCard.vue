@@ -2,12 +2,12 @@
   <div class="cabin-card" ref="imageCont">
     <div class="cabin-image" @click.stop.prevent="onImageClicked">
       <img :src="imageSRC" @load="loaded" />
-      <div key="timestamp" class="timestamp" :class="{ active: showRefresh }">
+      <div key="timestamp" class="timestamp" :class="{ active: openSettings }">
         {{ timeStamp }}
       </div>
     </div>
     <transition name="bounce">
-      <vs-button key="refresh" v-if="showRefresh" color="primary" gradient class="cabin-refresh" @click="imageRefresh">
+      <vs-button key="refresh" v-if="openSettings" color="primary" gradient class="cabin-refresh" @click="imageRefresh">
         <NateIcons icon="refresh" :size="21" :gradient="false" color="white" />
       </vs-button>
     </transition>
@@ -22,17 +22,22 @@ import moment from 'moment';
 @Component({})
 export default class CabinCard extends Vue {
   @Prop() card: any;
+  @Prop() showSettings: any;
 
   loading = null;
   showRefresh = false;
-  recentImage = null;
+  recentImage: any = {};
+
+  get openSettings() {
+    return this.showRefresh || this.showSettings;
+  }
 
   get imageSRC() {
-    return apiURL + (this.recentImage || this.card.path);
+    return apiURL + (this.recentImage.path || this.card.path);
   }
 
   get timeStamp() {
-    const date = new Date(this.card.creationTime);
+    const date = new Date(this.recentImage.creationTime || this.card.creationTime);
     return moment(date).format('lll');
   }
 
@@ -65,7 +70,7 @@ export default class CabinCard extends Vue {
 
     try {
       const imageData = await requestUpdatedImage('camera1');
-      this.recentImage = imageData.path;
+      this.recentImage = imageData;
       console.log(imageData);
     } catch {
       alert('something went wrong');
@@ -77,15 +82,17 @@ export default class CabinCard extends Vue {
 <style lang="scss">
 .cabin-card {
   background: none;
+  margin: 5px 0px;
   color: rgba(var(--vs-text), 1);
   width: 100%;
-  max-width: 850px;
   box-shadow: 0 5px 20px 0 rgba(0, 0, 0, var(--vs-shadow-opacity));
   transition: all 0.25s ease;
   border-radius: 20px;
   cursor: pointer;
   position: relative;
   min-height: 180px;
+  min-width: 360px;
+  max-width: 480px;
   .cabin-image {
     position: relative;
     display: flex;

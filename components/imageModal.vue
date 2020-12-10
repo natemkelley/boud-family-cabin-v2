@@ -47,7 +47,6 @@ export default class ImageModal extends Vue {
   left: 0;
   height: 100vh;
   width: 100%;
-  max-width: 850px;
   background: rgba(32, 32, 32, 0.65) !important;
   backdrop-filter: blur(10px);
   z-index: 999;

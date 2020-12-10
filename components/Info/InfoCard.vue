@@ -1,5 +1,5 @@
 <template>
-  <div class="cabin-card" @click.prevent.stop="cardClickToggle">
+  <div class="info-card" @click.prevent.stop="cardClickToggle">
     <vs-alert gradient shadow :color="cardColor">
       <template #title>
         <div v-if="card.title">
@@ -71,8 +71,14 @@ export default class ViewInfoCards extends Vue {
 </script>
 
 <style lang="scss">
-.cabin-card {
+.info-card {
   position: relative;
+  max-width: 500px;
+
+  .vs-alert {
+    height: auto !important;
+  }
+
   &:not(:first-child) {
     margin-top: 15px;
   }

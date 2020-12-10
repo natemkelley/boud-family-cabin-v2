@@ -1,11 +1,6 @@
 <template>
   <div class="map-card">
-    <GmapMap
-      ref="map"
-      :center="center"
-      :options="options"
-      :style="computedMapStyle"
-    >
+    <GmapMap ref="map" :center="center" :options="options" :style="computedMapStyle">
       <GmapMarker
         :key="index"
         v-for="(m, index) in cameraData"
@@ -19,10 +14,10 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Emit, Watch } from "vue-property-decorator";
-import { gmapApi } from "vue2-google-maps";
-import { CardData } from "~/config/camera";
-import { getStyle } from "~/helpers";
+import { Vue, Component, Prop, Emit, Watch } from 'vue-property-decorator';
+import { gmapApi } from 'vue2-google-maps';
+import { CardData } from '~/config/camera';
+import { getStyle } from '~/helpers';
 
 @Component({})
 export default class MapCard extends Vue {
@@ -42,7 +37,7 @@ export default class MapCard extends Vue {
   center = { lat: 40.63661, lng: -111.699347 };
 
   get computedMapStyle() {
-    return { width: "100%", height: "100%" };
+    return { width: '100%', height: '100%' };
   }
 
   get google() {
@@ -57,7 +52,7 @@ export default class MapCard extends Vue {
     const myLatLng = this.createMarker(cardData);
 
     //@ts-ignore
-    this.$refs.map.$mapPromise.then((map) => {
+    this.$refs.map.$mapPromise.then(map => {
       const currentZoomLevel = map.getZoom();
       const goodZoom = 13;
 
@@ -69,12 +64,12 @@ export default class MapCard extends Vue {
     });
   }
 
-  @Emit("markerClicked")
+  @Emit('markerClicked')
   mapMarkerClicked(cardData: CardData) {
     this.panTo(cardData);
   }
 
-  @Watch("activeCamera")
+  @Watch('activeCamera')
   activeCameraChange() {
     this.panTo(this.activeCamera);
   }
@@ -91,10 +86,9 @@ export default class MapCard extends Vue {
 
 <style lang="scss" scoped>
 .map-card {
-  width: 85%;
+  width: 100%;
   border-radius: 25px;
   overflow: hidden;
-  max-width: 95vw;
   background: rgb(65, 65, 65);
   height: 100%;
 }

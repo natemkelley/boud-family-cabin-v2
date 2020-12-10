@@ -1,16 +1,7 @@
 <template>
   <div>
-    <ZoomCenterTransition group :duration="750" :delay="150">
-      <InfoCard v-for="card in cabinCards" :key="card.uuid" :card="card" @deleteClicked="toggleCardToDelete"></InfoCard>
-
-      <InfoCard
-        v-if="!cabinCards.length"
-        key="alert"
-        color="danger"
-        :card="alertCard"
-        :canShowDelet="false"
-        @deleteClicked="toggleCardToDelete"
-      ></InfoCard>
+    <ZoomCenterTransition class="test" group :duration="750" :delay="150">
+      <InfoCard v-for="card in cards" :key="card.uuid" :card="card" @deleteClicked="toggleCardToDelete"></InfoCard>
     </ZoomCenterTransition>
 
     <div ref="loading" class="loading-box"></div>
@@ -46,7 +37,7 @@
 <script lang="ts">
 import { Vue, Component, PropSync, Emit, Prop } from 'vue-property-decorator';
 import { infoCardsCollection, InfoCard } from '@/config/firebaseConfig';
-import InfoCardComponent from '@/components/Cabin/InfoCard.vue';
+import InfoCardComponent from '@/components/Info/InfoCard.vue';
 import { FadeTransition, ZoomCenterTransition } from 'vue2-transitions';
 import { firebaseTimestampToDate } from '@/config/firebaseConfig';
 
@@ -57,14 +48,9 @@ import { firebaseTimestampToDate } from '@/config/firebaseConfig';
   },
 })
 export default class ViewInfoCards extends Vue {
-  @Prop() cabinCards: InfoCard[];
+  @Prop() cards: InfoCard[];
 
   cardToDelete: InfoCard | null = null;
-
-  alertCard = {
-    title: 'No information added',
-    info: `Please use the "+" button below to add some information!`,
-  };
 
   get showModal() {
     return Boolean(this.cardToDelete);
