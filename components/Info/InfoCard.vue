@@ -36,7 +36,7 @@ import { firebaseTimestampToDate, InfoCard } from '@/config/firebaseConfig';
 import moment from 'moment';
 
 @Component({ components: {} })
-export default class ViewInfoCards extends Vue {
+export default class InfoCards extends Vue {
   @Prop({
     default: () => {
       return {};
@@ -50,7 +50,7 @@ export default class ViewInfoCards extends Vue {
   active = true;
 
   get cardColor() {
-    return this.color || this.card.color;
+    return this.card.color || this.color;
   }
 
   cardClickToggle() {

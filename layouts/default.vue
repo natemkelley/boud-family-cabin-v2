@@ -1,13 +1,13 @@
 <template>
   <div class="default">
     <Nuxt class="container" :nuxt-child-key="key" />
-    <Navigation />
+    <Navigation class="navigation" />
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from "vue-property-decorator";
-import Navigation from "@/components/Navigation.vue";
+import { Vue, Component, Prop } from 'vue-property-decorator';
+import Navigation from '@/components/Navigation.vue';
 
 @Component({ components: { Navigation } })
 export default class defaultLayout extends Vue {
@@ -24,12 +24,18 @@ export default class defaultLayout extends Vue {
   position: relative;
   max-height: 100vh;
   overflow-x: hidden;
-  //padding-bottom: 120px;
 }
 
 .container {
   padding: 25px;
-  height: calc(100% - 25px);
+  height: calc(100vh - 100px);
   overflow-y: auto;
+}
+
+.navigation {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  z-index: 500;
 }
 </style>

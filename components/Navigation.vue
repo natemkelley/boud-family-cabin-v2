@@ -1,5 +1,5 @@
 <template>
-  <div class="navigation">
+  <div>
     <div class="navigation-container">
       <div class="navigation-secondary" :class="{ hide: !showSecondary }">
         <div class="navigation-interior">
@@ -83,12 +83,6 @@ $border-radius: 25px 25px 0px 0px;
 $box-shadow: 0px -1px 5px #0000001f;
 
 .navigation {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  color: black;
-  z-index: 500;
-
   &-container {
     position: relative;
   }

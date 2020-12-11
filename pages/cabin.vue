@@ -115,7 +115,6 @@ $dark-background: #1e2023;
     background: #1e2023;
     margin-bottom: 10px;
     border-radius: 20px;
-    height: 100%;
     display: flex;
     flex-direction: column;
     position: relative;

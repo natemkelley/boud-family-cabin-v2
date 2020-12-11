@@ -91,7 +91,7 @@ export default class CabinCard extends Vue {
   cursor: pointer;
   position: relative;
   min-height: 180px;
-  min-width: 100%;
+  width: 100%;
   max-width: 480px;
   .cabin-image {
     position: relative;

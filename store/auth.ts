@@ -1,6 +1,8 @@
 import { isEmpty } from 'lodash';
 import { User } from './interfaces';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+
 import { usersCollection } from '~/config';
 
 export const state = () => ({

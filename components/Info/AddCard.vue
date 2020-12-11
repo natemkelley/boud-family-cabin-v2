@@ -112,6 +112,8 @@ export default class AddCard extends Vue {
     setTimeout(() => {
       this.activeSync = false;
       this.savingCard = false;
+      this.textarea = '';
+      this.header = '';
     }, 100);
   }
 
